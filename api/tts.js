@@ -1,8 +1,8 @@
 // Sage's studio voice. Uses ElevenLabs when ELEVENLABS_API_KEY is set, otherwise OpenAI text-to-speech.
-// ElevenLabs: ELEVENLABS_API_KEY, optional ELEVENLABS_VOICE_ID, ELEVENLABS_MODEL.
-// OpenAI:     OPENAI_API_KEY, optional OPENAI_TTS_MODEL (default gpt-4o-mini-tts), OPENAI_TTS_VOICE (default coral).
+// ElevenLabs: ELEVENLABS_API_KEY, optional ELEVENLABS_VOICE_ID (default: Rachel, a warm female voice), ELEVENLABS_MODEL.
+// OpenAI:     OPENAI_API_KEY, optional OPENAI_TTS_MODEL (default gpt-4o-mini-tts), OPENAI_TTS_VOICE (default coral, a warm female voice).
 const { limited, cors } = require('./_util');
-const STYLE = 'Speak as Sage, a warm, calm and reassuring wellness guide. Unhurried pace, gentle warmth, natural pauses. Never sound salesy.';
+const STYLE = 'Speak as Sage, a warm, friendly woman who works as a wellness guide. Smile in your voice: welcoming, calm and reassuring, like a trusted friend. Unhurried pace, gentle warmth, natural pauses. Never sound robotic or salesy.';
 module.exports = async (req, res) => {
   cors(res);
   if (req.method === 'OPTIONS') return res.status(204).end();

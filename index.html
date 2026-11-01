@@ -956,14 +956,17 @@ What you do:
 
 let sage=null; // 3D avatar hooks, set by init3D
 const chatState={turns:[],mode:'local',sample:null,busy:false,ctl:null,flow:null,greeted:false};
-const voice={on:store.get('sb-voice',true),cloud:false,audio:null,gen:0,picked:store.get('sb-voice-name','')};
+const voice={on:store.get('sb-voice',true),cloud:false,audio:null,gen:0,picked:store.get('sb-voice-female','')};
 function openChat(){$('#chat').classList.remove('closed');$('#fab').hidden=true;if(isNarrow()){$('#panel').classList.add('collapsed');$('#showPanel').hidden=false}if(!chatState.greeted)greet();setTimeout(()=>$('#chatIn').focus(),300)}
 function closeChat(){$('#chat').classList.add('closed');$('#fab').hidden=false}
 $('#fab').addEventListener('click',openChat);$('#closeChat').addEventListener('click',closeChat);
 /* ---------- Sage's voice: best natural device voice, or a studio voice from the server ---------- */
-const VOICE_RANK=[/Ava.*(Natural|Online|Premium|Enhanced)/i,/Aria.*(Natural|Online)/i,/Jenny.*(Natural|Online)/i,/Emma.*(Natural|Online)/i,/Michelle.*(Natural|Online)/i,/Natural/i,/Google US English/i,/(Premium|Enhanced)/i,/Samantha|Ava|Allison|Zoe|Susan|Nicky/i,/Google UK English Female/i];
+/* Sage always speaks with a warm female voice: known female voices only, warmest first. */
+const FEMALE_RE=/\b(?:Ava|Emma|Jenny|Aria|Michelle|Ana|Sonia|Libby|Natasha|Clara|Molly|Neerja|Leah|Zira|Hazel|Susan|Heera|Catherine|Linda|Nancy|Sara|Jane|Amber|Ashley|Cora|Elizabeth|Monica|Samantha|Allison|Zoe|Nicky|Karen|Moira|Tessa|Veena|Fiona|Victoria|Kathy|Serena|Joelle|Noelle|Siri Female|Female)(?:Multilingual)?\b|Google US English/i;
+const MALE_RE=/\b(David|Mark|Guy|Andrew|Brian|Christopher|Eric|Roger|Steffan|Ryan|Thomas|George|Daniel|Alex|Fred|Tom|Aaron|Arthur|Gordon|Rishi|Oliver|Davis|Jason|Tony|Liam|William|Prabhat|Ralph|Junior|Albert|Bruce|Evan|Nathan|Reed|Rocko|Grandpa|Male)\b/i;
+const VOICE_RANK=[/\bAva(Multilingual)?\b.*(Natural|Online)/i,/\bEmma(Multilingual)?\b.*(Natural|Online)/i,/\bJenny\b.*(Natural|Online)/i,/\bAria\b.*(Natural|Online)/i,/\bMichelle\b.*(Natural|Online)/i,/\bAva\b.*(Premium|Enhanced)/i,/\bZoe\b.*(Premium|Enhanced)/i,/\bSamantha\b.*(Premium|Enhanced)/i,/(Natural|Online)/i,/Google US English/i,/(Premium|Enhanced)/i,/\bSamantha\b|\bAva\b|\bAllison\b|\bZoe\b|\bSusan\b/i,/Google UK English Female/i];
 let VOICES=[];
-function loadVoices(){if(!window.speechSynthesis)return;VOICES=speechSynthesis.getVoices().filter(v=>/^en([-_]|$)/i.test(v.lang));renderVoiceSel()}
+function loadVoices(){if(!window.speechSynthesis)return;const en=speechSynthesis.getVoices().filter(v=>/^en([-_]|$)/i.test(v.lang));const fem=en.filter(v=>FEMALE_RE.test(v.name)&&!MALE_RE.test(v.name));VOICES=fem.length?fem:en.filter(v=>!MALE_RE.test(v.name));renderVoiceSel()}
 function bestVoice(){if(voice.picked&&voice.picked!=='__cloud'){const v=VOICES.find(v=>v.name===voice.picked);if(v)return v}for(const re of VOICE_RANK){const v=VOICES.find(v=>re.test(v.name)&&/en-US/i.test(v.lang))||VOICES.find(v=>re.test(v.name));if(v)return v}return VOICES.find(v=>/en-US/i.test(v.lang))||VOICES[0]||null}
 const prettyVoice=n=>n.replace(/^(Microsoft|Google|Apple)\s+/,'').replace(/\s+Online \(Natural\)/,' (natural)').replace(/\s+-\s+English.*$/,'');
 function renderVoiceSel(){const sel=$('#voiceSel'),b=bestVoice();const useCloud=voice.cloud&&(!voice.picked||voice.picked==='__cloud');
@@ -976,7 +979,7 @@ function speechText(t){return t.replace(/\*\*/g,'').replace(/^\s*[-•]\s+/gm,''
 const sentences=t=>(t.match(/[^.!?]+[.!?]*/g)||[t]).map(x=>x.trim()).filter(Boolean);
 function stopVoice(){voice.gen++;if(window.speechSynthesis)speechSynthesis.cancel();if(voice.audio){voice.audio.pause();voice.audio=null}if(sage){sage.talk(false);sage.level=null}}
 function browserSpeak(clean,g){if(!window.speechSynthesis)return;const v=bestVoice(),parts=sentences(clean),nat=v&&/Natural|Online|Premium|Enhanced|Google/i.test(v.name);
-  parts.forEach((p,i)=>{const u=new SpeechSynthesisUtterance(p);if(v){u.voice=v;u.lang=v.lang}u.rate=nat?1:.95;u.pitch=nat?1:1.04;
+  parts.forEach((p,i)=>{const u=new SpeechSynthesisUtterance(p);if(v){u.voice=v;u.lang=v.lang}u.rate=nat?.96:.93;u.pitch=nat?1.02:1.08;
     u.onstart=()=>{if(g===voice.gen&&sage)sage.talk(true)};u.onboundary=()=>{if(g===voice.gen&&sage)sage.pulse()};u.onend=u.onerror=()=>{if(i===parts.length-1&&g===voice.gen&&sage)sage.talk(false)};speechSynthesis.speak(u)})}
 async function cloudSpeak(text,g){const r=await fetch(SITE.VOICE_ENDPOINT,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({text})});if(!r.ok)throw new Error('tts');const blob=await r.blob();if(g!==voice.gen)return;
   const url=URL.createObjectURL(blob),a=new Audio(url);voice.audio=a;
@@ -985,7 +988,7 @@ async function cloudSpeak(text,g){const r=await fetch(SITE.VOICE_ENDPOINT,{metho
   a.onplay=()=>{if(sage)sage.talk(true)};a.onended=()=>{if(sage){sage.talk(false);sage.level=null}URL.revokeObjectURL(url)};await a.play()}
 function setVoiceOn(on){voice.on=on;store.set('sb-voice',on);$('#voice').setAttribute('aria-pressed',on);$('#voice').textContent=on?'Voice on':'Voice off';$('#voicebar').hidden=!on;if(!on)stopVoice()}
 $('#voice').addEventListener('click',()=>setVoiceOn(!voice.on));
-$('#voiceSel').addEventListener('change',e=>{voice.picked=e.target.value;store.set('sb-voice-name',voice.picked);speak("Hi, I'm Sage. This is how I'll sound.")});
+$('#voiceSel').addEventListener('change',e=>{voice.picked=e.target.value;store.set('sb-voice-female',voice.picked);speak("Hi, I'm Sage. This is how I'll sound.")});
 $('#voiceTest').addEventListener('click',()=>speak("Hi, I'm Sage, your guide to Success Brand. Take a slow breath. I'm right here with you."));
 setVoiceOn(voice.on);
 
