@@ -2,10 +2,12 @@
 
 A 3D / VR / AR counseling experience for [Success Brand](https://www.successbrand.org/), built with Three.js and WebXR.
 
-**Rooms:** Lobby · Book an appointment · Session room · Relaxation lounge · Meditation lounge · Mind Garden · Founders · Contact
+**Rooms:** Lobby · Book an appointment · Session room · Relaxation lounge · Meditation lounge · Mind Garden · Founders · Contact · Staff
 
 **Features**
-- Sage, a virtual guide who answers questions, books appointment requests, shares crisis resources, and speaks with a natural voice
+- A grand portal lobby: travertine arches with glowing outlines and signs, live previews of each room, a reflective floor, a tree-of-life sculpture and a skylight vault
+- Sage, a photoreal hologram guide who answers questions, books appointment requests, shares crisis resources, and speaks with a natural voice (she blinks, breathes and moves her lips as she talks)
+- Staff invitations: physicians, therapists and administrators invite clients to individual or group sessions; clients open a private link to accept, decline, add to calendar and join
 - Meditation lounge with three scenes (Aurora night, Golden dawn, Moonlit mist), a lotus that breathes with you, a singing bowl, guided meditations and a silent sit with bells
 - Relaxation lounge with teak chaise loungers, hanging rattan egg chairs and generative music
 - Mind Garden games: wellness trivia, Reframe It, brain teasers, Calm Words, Memory Match and a gratitude garden
@@ -27,6 +29,14 @@ Then open the printed address.
 - `ELEVENLABS_API_KEY` or `OPENAI_API_KEY` turns on Sage's studio voice (`api/tts.js`)
 
 The page checks `api/health` on load and switches these on automatically. Visitors can still pick a different voice from the chat's **Voice** menu.
+
+## Staff invitations
+Open **Staff** in the top menu and sign in with the staff access code.
+- On static hosting the code is `SITE.STAFF_CODE` near the top of `index.html` (default `SB-STAFF-2026`). Change it before launch. This is a convenience gate, not real security; use your organization's sign-in for production.
+- With `api/invite` deployed, the server checks `STAFF_CODE` instead and emails invitations through Resend (`RESEND_API_KEY`, `INVITE_FROM`) with a calendar file attached. Client accept/decline replies are emailed to the clinician (`api/rsvp`, staff addresses on `STAFF_EMAIL_DOMAIN` only).
+- Without email configured, staff use **Open in email app** (group invitations use BCC) or **Copy link**.
+- Each invitation lives inside its private link (`#invite-…`), so no database is needed. Links include session details only, never clinical notes, and "Keep it private" limits names to first names.
+- Set `SITE.PUBLIC_URL` to the page's public address so links created from previews point to the live site.
 
 ## Before launch
 - Booking requests are stored in the visitor's browser only. Connect your HIPAA-compliant scheduler or EHR in the booking form's submit handler (`#bookForm` in `index.html`).

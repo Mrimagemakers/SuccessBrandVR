@@ -6,5 +6,6 @@ module.exports = (req, res) => {
   res.status(200).json({
     guide: !!process.env.ANTHROPIC_API_KEY,
     voice: !!(process.env.ELEVENLABS_API_KEY || process.env.OPENAI_API_KEY),
+    invite: !!(process.env.RESEND_API_KEY && process.env.STAFF_CODE),
   });
 };
