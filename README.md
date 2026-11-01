@@ -8,10 +8,11 @@ A 3D / VR / AR counseling experience for [Success Brand](https://www.successbran
 - A grand portal lobby: travertine arches with glowing outlines and signs, live previews of each room, a reflective floor, a tree-of-life sculpture and a skylight vault
 - Sage, a photoreal hologram guide who answers questions, books appointment requests, shares crisis resources, and speaks with a natural voice (she blinks, breathes and moves her lips as she talks)
 - Staff invitations: physicians, therapists and administrators invite clients to individual or group sessions; clients open a private link to accept, decline, add to calendar and join
-- Meditation lounge with three scenes (Aurora night, Golden dawn, Moonlit mist), a lotus that breathes with you, a singing bowl, guided meditations and a silent sit with bells
+- Meditation lounge: a mountaintop sanctuary under the Milky Way with glowing carved arches, a valley river below, a Persian rug, glowing crystals, lanterns and a breathing meditation figure; three scenes (Milky Way, Golden dawn, Sea of clouds), a lotus that breathes with you, a singing bowl, guided meditations and a silent sit with bells
 - Relaxation lounge with teak chaise loungers, hanging rattan egg chairs and generative music
-- Mind Garden games: wellness trivia, Reframe It, brain teasers, Calm Words, Memory Match and a gratitude garden
+- Mind Garden: a storybook garden with a Victorian gazebo, winding stone paths, flower beds, a lily pond, lamp posts and butterflies. Games: wellness trivia, Reframe It, brain teasers, Calm Words, Memory Match and a gratitude garden
 - Enter VR on Meta Quest and other WebXR headsets; breathe with the orb in AR on supported phones
+- Zoom in and out with the on-screen + / − / reset buttons, the mouse wheel, pinch, or the + / − / 0 keys
 - 988 / 911 crisis line on every screen
 
 ## Run it locally
