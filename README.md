@@ -12,6 +12,7 @@ A 3D / VR / AR counseling experience for [Success Brand](https://www.successbran
 - Relaxation lounge with teak chaise loungers, hanging rattan egg chairs and generative music
 - Mind Garden: a storybook garden with a Victorian gazebo, winding stone paths, flower beds, a lily pond, lamp posts and butterflies. Games: wellness trivia, Reframe It, brain teasers, Calm Words, Memory Match and a gratitude garden
 - Enter VR on Meta Quest and other WebXR headsets; breathe with the orb in AR on supported phones
+- Opens fast: only the lobby loads before the page appears; other rooms load in the background. Phones and modest computers automatically use lighter graphics.
 - Zoom in and out with the on-screen + / − / reset buttons, the mouse wheel, pinch, or the + / − / 0 keys
 - 988 / 911 crisis line on every screen
 
@@ -30,6 +31,18 @@ Then open the printed address.
 - `ELEVENLABS_API_KEY` or `OPENAI_API_KEY` turns on Sage's studio voice (`api/tts.js`)
 
 The page checks `api/health` on load and switches these on automatically. Visitors can still pick a different voice from the chat's **Voice** menu.
+
+## Adding it to successbrand.org (Wix)
+The app must be hosted at its own address first. Turn on GitHub Pages (repository **Settings → Pages → Deploy from a branch → main → / (root) → Save**); the address is `https://mrimagemakers.github.io/SuccessBrandVR/`. Open that address on its own to confirm it loads before adding it to Wix.
+
+**Best: a button that opens the app.** In the Wix Editor add a button such as "Enter the Virtual Wellness Center", link it to the address above, and set it to open in a new tab. This is full screen, and VR headsets, voice and booking all work.
+
+**Also possible: show it inside a page.** Add Elements (+) → Embed Code → **Embed a Site**, paste the address, then stretch the box to full width and at least 700 px tall. Inside Wix's box, VR can't start (Wix doesn't allow it in embedded content), so the app shows an **Open full screen** button that opens it in its own tab.
+
+**Don't** paste the contents of `index.html` into Wix's "Embed HTML" box. Wix runs pasted code from its own servers, so the furniture models and server features can't be found, and the file is larger than Wix expects.
+
+## Building the website copy
+`index.html` here is the full web page. It is generated from the app source with `python3 tools/build_site.py <source.html> index.html`, which adds the page header phones need (doctype, character set and mobile viewport).
 
 ## Staff invitations
 Open **Staff** in the top menu and sign in with the staff access code.

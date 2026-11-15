@@ -1,4 +1,15 @@
+<!doctype html>
+<html lang="en">
+<head>
 <meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="description" content="Step into Success Brand's Virtual Wellness Center: book counseling, meet Sage your guide, relax, meditate and play mind games in 3D and VR.">
+<meta name="theme-color" content="#141312">
+<meta property="og:title" content="Success Brand Virtual Wellness Center">
+<meta property="og:description" content="Step into Success Brand's Virtual Wellness Center: book counseling, meet Sage your guide, relax, meditate and play mind games in 3D and VR.">
+<meta property="og:type" content="website">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 34 40'%3E%3Cpath d='M2 3 L9.5 6 L17 2 L24.5 6 L32 3 L32 19 Q31 32 17 39 Q3 32 2 19 Z' fill='%23141312' stroke='%23E3B62E' stroke-width='3'/%3E%3C/svg%3E">
+<style>html,body{margin:0}:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}</style>
 <title>Success Brand Virtual Wellness Center</title>
 <meta name="claude:viewport-fit-sides" content="cover">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -156,7 +167,8 @@ input[type=range]{width:100%;accent-color:var(--gold)}
 .zoom button{width:42px;height:42px;border-radius:12px;border:1px solid var(--line);background:var(--panel);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);color:var(--gold-hi);font:600 22px/1 var(--body);cursor:pointer;display:grid;place-items:center}
 .zoom button:hover{border-color:var(--gold)}
 @media (max-width:760px){.zoom{top:calc(var(--hdr,70px) + 10px);bottom:auto;flex-direction:row}.zoom button{width:38px;height:38px}}
-.gl-fallback{position:fixed;inset:0;display:grid;place-items:center;color:var(--muted);text-align:center;padding:0 24px}
+.gl-fallback{position:fixed;inset:0;z-index:13;display:grid;place-items:center;color:var(--cream);text-align:center;padding:0 24px;background:var(--ink)}
+.gl-fallback .box{max-width:440px;display:flex;flex-direction:column;gap:14px;align-items:center}
 
 /* Mind Garden games */
 .tabs{display:flex;gap:4px;flex-wrap:wrap;border-bottom:1px solid var(--line);padding-bottom:10px}
@@ -237,7 +249,8 @@ input[type=range]{width:100%;accent-color:var(--gold)}
 }
 @media (prefers-reduced-motion:reduce){.panel,.chat,.loading{transition:none}.typing i,.loading .bar i{animation:none}}
 </style>
-
+</head>
+<body>
 <canvas id="gl" aria-label="3D view of the Success Brand virtual wellness center"></canvas>
 <div class="loading" id="loading"><div><span class="word" style="font-size:22px">SUCCESS<br>BRAND</span><div class="bar"><i></i></div><span class="small muted">Preparing your space</span></div></div>
 
@@ -1173,16 +1186,26 @@ function startBooking(service,format){
   next();
 }
 
+/* ---------- Resilience: clear messages instead of a blank screen; full-screen link when embedded ---------- */
+const appHome=()=>/github\.io|vercel\.app|successbrand\.org|localhost/.test(location.hostname)?location.href.split('#')[0]:SITE.PUBLIC_URL;
+function glFail(msg,reload){if(document.querySelector('.gl-fallback'))return;const d=document.createElement('div');d.className='gl-fallback';
+  d.innerHTML=`<div class="box"><span class="word" style="font-size:20px">SUCCESS<br>BRAND</span><p>${esc(msg)}</p><p class="small muted">You can still book a session, chat with Sage and use the guided breathing from the panel.</p><div class="row" style="justify-content:center">${reload?'<button class="btn" type="button" id="glReload">Reload</button>':''}<a class="btn ghost" style="text-decoration:none" target="_blank" rel="noopener" href="${esc(appHome())}">Open in a new tab</a></div></div>`;
+  document.body.appendChild(d);const b=d.querySelector('#glReload');if(b)b.addEventListener('click',()=>location.reload());const l=$('#loading');if(l)l.classList.add('done')}
+let embedded=false;try{embedded=window.self!==window.top}catch(e){embedded=true}
+if(embedded&&!inSandbox){const a=document.createElement('a');a.className='xrbtn';a.style.textDecoration='none';a.textContent='Open full screen ↗';a.href=appHome();a.target='_blank';a.rel='noopener';a.title='Open the Virtual Wellness Center in its own tab. VR and voice work best there.';document.querySelector('.xr').prepend(a)}
 /* =================== 3D WORLD =================== */
 function init3D(){
-if(!window.THREE){document.body.insertAdjacentHTML('beforeend','<div class="gl-fallback">The 3D center could not load on this device. Booking, Sage and the guided breath still work.</div>');return}
+if(!window.THREE){glFail('The 3D tools could not be downloaded. Check your connection, or try another browser.',true);return}
 const V=THREE.Vector3, GOLD=0xE3B62E;
 const canvas=$('#gl');
-const renderer=new THREE.WebGLRenderer({canvas,antialias:true,alpha:true});
-renderer.setPixelRatio(Math.min(devicePixelRatio,2));renderer.setSize(innerWidth,innerHeight);
+/* Lighter settings for phones, tablets and modest computers so the app opens quickly and stays stable. */
+const LOW=/Mobi|Android|iPhone|iPad|iPod/i.test(navigator.userAgent)||(navigator.maxTouchPoints>1&&/Macintosh/.test(navigator.userAgent))||(navigator.deviceMemory&&navigator.deviceMemory<=4)||(navigator.hardwareConcurrency&&navigator.hardwareConcurrency<=4)||Math.min(innerWidth,innerHeight)<600;
+let renderer;try{renderer=new THREE.WebGLRenderer({canvas,antialias:!LOW,alpha:true,powerPreference:'high-performance'})}catch(e){glFail('This device or browser could not start the 3D view.');return}
+const PR=Math.min(devicePixelRatio||1,LOW?1.25:2);renderer.setPixelRatio(PR);renderer.setSize(innerWidth,innerHeight);
+canvas.addEventListener('webglcontextlost',e=>{e.preventDefault();glFail('The 3D view paused because the device ran low on graphics memory.',true)},false);
 renderer.outputEncoding=THREE.sRGBEncoding;renderer.toneMapping=THREE.ACESFilmicToneMapping;renderer.toneMappingExposure=1.05;
 renderer.physicallyCorrectLights=false;
-renderer.shadowMap.enabled=true;renderer.shadowMap.type=THREE.PCFSoftShadowMap;renderer.shadowMap.autoUpdate=false;
+renderer.shadowMap.enabled=!LOW;renderer.shadowMap.type=THREE.PCFSoftShadowMap;renderer.shadowMap.autoUpdate=false;
 renderer.setClearColor(0x000000,0);
 renderer.xr.enabled=true;renderer.xr.setReferenceSpaceType('local-floor');
 const maxAniso=renderer.capabilities.getMaxAnisotropy();
@@ -1424,7 +1447,7 @@ function buildLobby(){
   const woodT=T.oak.clone();woodT.needsUpdate=true;woodT.repeat.set(10,1);const border=M(new THREE.RingGeometry(9.6,RW,128,2),mat(0xffffff,{map:woodT,roughness:.35}));border.rotation.x=-Math.PI/2;border.position.y=.002;s.add(border);
   const inlay=M(new THREE.RingGeometry(9.55,9.66,128),goldBrushed);inlay.rotation.x=-Math.PI/2;inlay.position.y=.004;s.add(inlay);
   const rug=M(new THREE.PlaneGeometry(6,2.11),mat(0xffffff,{map:rugTex(),roughness:.4}));rug.rotation.x=-Math.PI/2;rug.position.set(0,.012,4.1);s.add(rug);
-  let refl=null;if(THREE.Reflector){try{refl=new THREE.Reflector(new THREE.CircleGeometry(RW,96),{textureWidth:Math.min(1280,Math.round(innerWidth*.6)),textureHeight:Math.min(1024,Math.round(innerHeight*.6)),clipBias:.003,color:0x888888,shader:{
+  let refl=null;if(THREE.Reflector&&!LOW){try{refl=new THREE.Reflector(new THREE.CircleGeometry(RW,96),{textureWidth:Math.min(1280,Math.round(innerWidth*.6)),textureHeight:Math.min(1024,Math.round(innerHeight*.6)),clipBias:.003,color:0x888888,shader:{
     uniforms:{color:{value:null},tDiffuse:{value:null},textureMatrix:{value:null}},
     vertexShader:`uniform mat4 textureMatrix;varying vec4 vUv;varying vec3 vW;void main(){vUv=textureMatrix*vec4(position,1.);vec4 w=modelMatrix*vec4(position,1.);vW=w.xyz;gl_Position=projectionMatrix*viewMatrix*w;}`,
     fragmentShader:`uniform sampler2D tDiffuse;varying vec4 vUv;varying vec3 vW;void main(){vec4 b=texture2DProj(tDiffuse,vUv);vec3 V=normalize(cameraPosition-vW);float f=pow(1.-max(V.y,0.),2.5);float d=length(vW.xz);float a=(.08+.22*f)*(1.-smoothstep(10.5,12.,d))*(1.-smoothstep(2.9,3.1,abs(vW.x))*0.+0.);if(abs(vW.x)<3.&&abs(vW.z-4.1)<1.06)a*=.25;gl_FragColor=vec4(b.rgb,a);}`}});
@@ -1479,7 +1502,7 @@ function buildLobby(){
     const key1=B(.36,.5,.3,travM,0,6.1,.06);g.add(key1);
     const panel=archFrame(1.5,4.3,1.08,2.45,.1,mat(0xffffff,{map:T.walnut,roughness:.5}));panel.position.z=-.42;g.add(panel);
     const lining=archFrame(1.14,2.45,1.08,2.45,.75,mat(0xf0e4d0,{roughness:.6}));lining.position.z=-.5;g.add(lining);
-    const rt=key==='book'?null:new THREE.WebGLRenderTarget(512,840,{encoding:THREE.sRGBEncoding});if(rt)rt.texture.encoding=THREE.sRGBEncoding;
+    const rt=key==='book'?null:new THREE.WebGLRenderTarget(LOW?256:512,LOW?420:840,{encoding:THREE.sRGBEncoding});if(rt)rt.texture.encoding=THREE.sRGBEncoding;
     const vg=new THREE.ShapeGeometry(archShape(1.08,2.45),24),pp=vg.attributes.position,uv=vg.attributes.uv;for(let k=0;k<pp.count;k++)uv.setXY(k,(pp.getX(k)+1.08)/2.16,pp.getY(k)/3.53);
     const view=M(vg,new THREE.MeshBasicMaterial({map:rt?rt.texture:bookingTex(),toneMapped:false}),0,0,-1.2);g.add(view);
     const curve=archOutline(1.1,2.45,.05);const neon=new THREE.Mesh(new THREE.TubeGeometry(curve,90,.03,8),new THREE.MeshBasicMaterial({color:col,toneMapped:false}));neon.position.z=-.36;g.add(neon);
@@ -1695,10 +1718,10 @@ const MED_MOODS={
   aurora:{top:'#01020a',mid:'#060c26',hor:'#1a2650',bot:'#02030a',fog:'#0a1230',fogD:.004,hemiS:'#5a6aa8',hemiG:'#08080c',hemiI:.32,key:'#a8bcff',keyI:.6,keyPos:[-30,30,-60],stars:1,milky:1,aurora:.22,moon:1,sun:0,rock:'#3a404c',valley:1,clouds:.12,cloudCol:'#8fa2d0',ff:1,lant:1},
   dawn:{top:'#2d4f86',mid:'#f0a07c',hor:'#ffd6a0',bot:'#3a2c30',fog:'#c89a8a',fogD:.003,hemiS:'#ffe2c4',hemiG:'#4a3628',hemiI:.5,key:'#ffc48a',keyI:1.2,keyPos:[40,8,-80],stars:0,milky:0,aurora:0,moon:0,sun:1,rock:'#7a6870',valley:.12,clouds:.5,cloudCol:'#ffd8c8',ff:.1,lant:.45},
   mist:{top:'#03060f',mid:'#101a32',hor:'#2e3e62',bot:'#04060c',fog:'#14203a',fogD:.004,hemiS:'#7a8cc0',hemiG:'#0a0c12',hemiI:.36,key:'#c8d4ff',keyI:.6,keyPos:[-30,30,-60],stars:.8,milky:.6,aurora:0,moon:1,sun:0,rock:'#3e4558',valley:.05,clouds:1,cloudCol:'#c8d4f0',ff:.6,lant:.9}};
-function milkyWayTex(){const W=4096,H=2048,[c,x]=cv(W,H);x.fillStyle='#000';x.fillRect(0,0,W,H);const band=u=>H*.4+Math.sin(u/W*Math.PI*2+1.1)*H*.07;
+function milkyWayTex(){const W=LOW?2048:4096,H=LOW?1024:2048,[c,x]=cv(W,H);x.fillStyle='#000';x.fillRect(0,0,W,H);const band=u=>H*.4+Math.sin(u/W*Math.PI*2+1.1)*H*.07;
   for(let i=0;i<1500;i++){const u=rnd(0,W),y=band(u)+rnd(-1,1)*rnd(0,H*.06),r=rnd(30,150),g=x.createRadialGradient(u,y,0,u,y,r);const cc=[[190,205,255],[255,222,190],[255,180,215],[170,190,255]][i%4];g.addColorStop(0,`rgba(${cc},${rnd(.12,.28).toFixed(3)})`);g.addColorStop(1,'rgba(0,0,0,0)');x.fillStyle=g;x.fillRect(u-r,y-r,r*2,r*2)}
   x.globalCompositeOperation='destination-out';for(let i=0;i<420;i++){const u=rnd(0,W),y=band(u)+rnd(-1,1)*H*.025,r=rnd(10,50),g=x.createRadialGradient(u,y,0,u,y,r);g.addColorStop(0,'rgba(0,0,0,.35)');g.addColorStop(1,'rgba(0,0,0,0)');x.fillStyle=g;x.fillRect(u-r,y-r,r*2,r*2)}x.globalCompositeOperation='source-over';
-  for(let i=0;i<26000;i++){const inB=i<14000,u=rnd(0,W),y=inB?band(u)+(Math.random()+Math.random()-1)*H*.09:rnd(0,H*.55),b=Math.pow(Math.random(),inB?3:5);x.fillStyle=`rgba(255,${240+Math.random()*15|0},${225+Math.random()*30|0},${(.25+b*.75).toFixed(2)})`;const s=b>.85?2.2:b>.5?1.5:1;x.fillRect(u,y,s,s)}
+  for(let i=0,N=LOW?9000:26000;i<N;i++){const inB=i<N*.54,u=rnd(0,W),y=inB?band(u)+(Math.random()+Math.random()-1)*H*.09:rnd(0,H*.55),b=Math.pow(Math.random(),inB?3:5);x.fillStyle=`rgba(255,${240+Math.random()*15|0},${225+Math.random()*30|0},${(.25+b*.75).toFixed(2)})`;const s=b>.85?2.2:b>.5?1.5:1;x.fillRect(u,y,s,s)}
   for(let i=0;i<60;i++){const u=rnd(0,W),y=rnd(0,H*.5),g=x.createRadialGradient(u,y,0,u,y,6);g.addColorStop(0,'rgba(255,255,255,.95)');g.addColorStop(1,'rgba(255,255,255,0)');x.fillStyle=g;x.fillRect(u-6,y-6,12,12)}
   const t=new THREE.CanvasTexture(c);t.encoding=THREE.sRGBEncoding;t.anisotropy=maxAniso;return t}
 function crescentTex(){const [c,x]=cv(256,256);x.fillStyle='#fff6e2';x.beginPath();x.arc(128,128,96,0,7);x.fill();x.globalCompositeOperation='destination-out';x.beginPath();x.arc(170,104,90,0,7);x.fill();const t=new THREE.CanvasTexture(c);t.encoding=THREE.sRGBEncoding;return t}
@@ -1978,22 +2001,27 @@ function buildMind(){
 function buildAR(){const s=new THREE.Scene();s.add(new THREE.HemisphereLight(0xffffff,0x444444,1));const orb=makeOrb();orb.position.set(0,1.3,-1.3);orb.scale.setScalar(.6);s.add(orb);
   return {scene:s,I:[],cam:[0,1.6,1],target:[0,1.3,-1.3],spawn:[0,0,0],update(t){const k=breath.scale*.6;orb.scale.setScalar(k);orb.userData.core.material.uniforms.t.value=t;orb.userData.r1.rotation.x=t*.4}}}
 
-const R={lobby:buildLobby(),session:buildSession(),relax:buildRelax(),meditate:buildMeditate(),mind:buildMind()};const AR=buildAR();
+/* Only the lobby is built before the page appears; other rooms build in the background (or on first visit). */
+const BUILD={session:buildSession,relax:buildRelax,meditate:buildMeditate,mind:buildMind};
+const R={lobby:buildLobby()};const AR=buildAR();
+function getRoom(k){if(!R[k]&&BUILD[k]){try{R[k]=BUILD[k]()}catch(e){console.error(e);return R.lobby}}return R[k]||R.lobby}
 const S=makeSage();sage=S;
 // VR quick menu around Sage
 const vrMenu=new THREE.Group();[['Breathe with me','Guided breath','sage-breathe',-.75],['Relax','Go to the lounge','sage-relax',0],['Need help now?','Crisis lines','sage-help',.75]].forEach(b=>{const l=label(b[0],b[1],.7);l.position.set(b[3],1.05,.55);l.userData.action=b[2];vrMenu.add(l)});vrMenu.visible=false;S.group.add(vrMenu);
 let cur=R.lobby;const tw={from:null,to:null,tf:null,tt:null,k:1};
 /* live room previews inside the lobby arches */
 const snapCam=new THREE.PerspectiveCamera(50,2.16/3.53,.05,400);
-function snap(key){const room=R[key],p=(R.lobby.portals||[]).find(q=>q.key===key);if(!room||!p||!p.rt||renderer.xr.isPresenting)return;
+function snap(key){const room=R[key];if(!room)return;const _r=room,p=(R.lobby.portals||[]).find(q=>q.key===key);if(!room||!p||!p.rt||renderer.xr.isPresenting)return;
   snapCam.position.fromArray(room.cam);snapCam.lookAt(new V().fromArray(room.target));const ex=renderer.toneMappingExposure;renderer.toneMappingExposure=room.exposure||1.05;
   renderer.shadowMap.needsUpdate=true;renderer.setRenderTarget(p.rt);renderer.clear();renderer.render(room.scene,snapCam);renderer.setRenderTarget(null);renderer.toneMappingExposure=ex;renderer.shadowMap.needsUpdate=true}
 const snapAll=()=>['session','relax','meditate','mind'].forEach(snap);
-setTimeout(snapAll,200);setTimeout(snapAll,6000);setTimeout(snapAll,15000);
+const bgQueue=['session','relax','meditate','mind'];
+function buildNext(){if(renderer.xr.isPresenting){setTimeout(buildNext,2000);return}const k=bgQueue.shift();if(!k){setTimeout(snapAll,4000);return}if(!R[k])getRoom(k);snap(k);setTimeout(buildNext,LOW?700:350)}
+setTimeout(buildNext,LOW?1500:700);
 const SAGE_TINT={lobby:[1,1,1],session:[1,.96,.9],relax:[1.03,.9,.84],meditate:[.86,.87,.98],mind:[1.04,1.02,.98]};
 function placeSage(room){room.scene.add(S.group);S.group.position.fromArray(room.sage);S.setTint(SAGE_TINT[Object.keys(R).find(k=>R[k]===room)]||[1,1,1]);S.appear();const c=new V().fromArray(room.cam);S.group.rotation.y=Math.atan2(c.x-room.sage[0],c.z-room.sage[2])}
 onView=(v,instant)=>{
-  const room=R[{book:'lobby',about:'lobby',contact:'lobby',staff:'lobby'}[v]||v];const vs=(room.views&&room.views[v])||room;
+  const room=getRoom({book:'lobby',about:'lobby',contact:'lobby',staff:'lobby'}[v]||v);const vs=(room.views&&room.views[v])||room;
   if(room!==cur){const prev=Object.keys(R).find(k=>R[k]===cur);cur=room;if(room===R.lobby&&prev)setTimeout(()=>snap(prev),50);renderer.toneMappingExposure=cur.exposure||1.05;cur.scene.add(rig);placeSage(cur);renderer.shadowMap.needsUpdate=true;instant=true}
   if(renderer.xr.isPresenting){rig.position.fromArray(cur.spawn);return}
   if(instant){camera.position.fromArray(vs.cam);controls.target.fromArray(vs.target);tw.k=1}
@@ -2065,6 +2093,8 @@ go(location.hash.slice(1)||'lobby',true);
 
 go(checkInviteHash()?'lobby':(location.hash.slice(1)||'lobby'),true);
 const fontsReady=document.fonts?Promise.race([document.fonts.ready,new Promise(r=>setTimeout(r,1500))]):Promise.resolve();
-fontsReady.then(()=>{try{init3D()}catch(e){console.error(e);document.body.insertAdjacentHTML('beforeend','<div class="gl-fallback">The 3D center could not load on this device. Booking, Sage and the guided breath still work.</div>')}finally{$('#loading').classList.add('done');setTimeout(()=>{if(!$('#chat').classList.contains('closed'))return;const b=$('#fab');b.animate&&!reduce&&b.animate([{transform:'scale(1)'},{transform:'scale(1.08)'},{transform:'scale(1)'}],{duration:900,iterations:2})},1500)}});
+fontsReady.then(()=>{try{init3D()}catch(e){console.error(e);glFail('The 3D view could not start on this device.',true)}finally{$('#loading').classList.add('done');setTimeout(()=>{if(!$('#chat').classList.contains('closed'))return;const b=$('#fab');b.animate&&!reduce&&b.animate([{transform:'scale(1)'},{transform:'scale(1.08)'},{transform:'scale(1)'}],{duration:900,iterations:2})},1500)}});
 })();
 </script>
+</body>
+</html>
