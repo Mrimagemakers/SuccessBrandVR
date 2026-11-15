@@ -196,6 +196,99 @@ input[type=range]{width:100%;accent-color:var(--gold)}
 .grat{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:6px}
 .grat li{font-size:13px;border-left:2px solid var(--sage);padding-left:10px}
 
+/* New Mind Garden games */
+.panel:has([data-panel="mind"]:not([hidden])){width:min(460px,calc(100% - 32px))}
+.tabs.two{border-bottom:0;padding-bottom:0}
+.tabs-label{font:700 11px var(--display);letter-spacing:.12em;text-transform:uppercase;color:var(--gold-lo);margin:2px 0 -6px}
+.seg{display:flex;flex-wrap:wrap;gap:4px;background:var(--ink-2);border:1px solid var(--line);border-radius:11px;padding:3px}
+.seg button{flex:1 1 auto;border:0;background:none;color:var(--muted);font-size:12.5px;padding:7px 6px;border-radius:8px;cursor:pointer;white-space:nowrap}
+.seg button[aria-pressed="true"]{background:linear-gradient(180deg,rgba(246,218,107,.22),rgba(227,182,46,.12));color:var(--gold-hi);box-shadow:inset 0 0 0 1px rgba(227,182,46,.45)}
+.seg.sm button{font-size:12px;padding:5px 4px}
+.affirm.win{background:radial-gradient(120% 140% at 50% 0%,rgba(246,218,107,.16),transparent 70%);border-color:var(--gold);animation:winIn .6s ease-out}
+@keyframes winIn{from{transform:scale(.94);opacity:0}}
+.glow{animation:cellGlow 1.4s ease-out}
+@keyframes cellGlow{30%{box-shadow:0 0 0 2px var(--gold-hi),0 0 18px rgba(246,218,107,.7)}}
+/* crossword */
+.cw-active{font-size:13px;min-height:2.6em;padding:8px 10px;border-radius:10px;background:var(--ink-2);border-left:3px solid var(--gold)}
+.cw-grid{display:grid;grid-template-columns:repeat(var(--w),1fr);gap:2px;max-width:calc(var(--w) * 38px);width:100%;margin:0 auto}
+.cw-cell{position:relative;aspect-ratio:1;background:linear-gradient(160deg,#f7f0df,#e9dcc0);border-radius:4px;transition:background .2s}
+.cw-cell input{position:absolute;inset:0;width:100%;height:100%;border:0;background:none;text-align:center;font:800 clamp(13px,4vw,19px)/1 var(--display);color:#2a241b;text-transform:uppercase;padding:0;caret-color:transparent;border-radius:4px}
+.cw-cell input:focus{outline:none}
+.cw-n{position:absolute;left:2px;top:0;font-size:8.5px;font-weight:700;color:#7a6a4c;pointer-events:none;z-index:1}
+.cw-cell.hl{background:linear-gradient(160deg,#f6e3a1,#ecd17a)}
+.cw-cell.on{box-shadow:0 0 0 2px var(--gold-lo) inset;background:#ffe78a}
+.cw-cell.bad input{color:#b4513f}
+.cw-cell.bad{background:linear-gradient(160deg,#f6d8cf,#eec2b5)}
+.cw-cell.given input{color:#5b7f69}
+.cw-blank{aspect-ratio:1}
+.cw-clues{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.cw-clues h3{font-size:14px;color:var(--gold-hi);margin-bottom:4px}
+.cw-clues ol{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:3px}
+.cw-clues li{font-size:12.5px;line-height:1.35;padding:4px 6px;border-radius:6px;cursor:pointer}
+.cw-clues li b{color:var(--gold);margin-right:3px}
+.cw-clues li.on{background:rgba(227,182,46,.14)}
+.cw-clues li.done{color:var(--muted);text-decoration:line-through;text-decoration-color:var(--sage)}
+@media (max-width:420px){.cw-clues{grid-template-columns:1fr}}
+/* sudoku */
+.sd-grid{display:grid;grid-template-columns:repeat(var(--n),1fr);border:2px solid var(--gold-lo);border-radius:10px;overflow:hidden;max-width:420px;width:100%;margin:0 auto;background:var(--ink-3)}
+.sd-c{aspect-ratio:1;border:0;border-right:1px solid rgba(227,182,46,.13);border-bottom:1px solid rgba(227,182,46,.13);background:var(--ink-2);color:var(--cream);font:600 clamp(15px,4.6vw,21px)/1 var(--display);cursor:pointer;padding:0;display:grid;place-items:center;position:relative;transition:background .15s}
+.sd-c.br{border-right:2px solid var(--gold-lo)}.sd-c.bb{border-bottom:2px solid var(--gold-lo)}
+.sd-c.fix{color:var(--gold-hi);font-weight:800;background:#211f1b}
+.sd-c.peer{background:#2a2620}.sd-c.same span{color:#fff;text-shadow:0 0 10px rgba(246,218,107,.8)}
+.sd-c.sel{background:rgba(227,182,46,.28);outline:none}
+.sd-c.clash span{color:var(--rose)}.sd-c.clash{background:rgba(224,138,122,.12)}
+.sd-c.given{color:var(--sage)}
+.sd-c:focus-visible{outline:2px solid var(--gold-hi);outline-offset:-2px}
+.colors .sd-c span{width:74%;height:74%;border-radius:50%;display:grid;place-items:center;background:radial-gradient(circle at 35% 30%,color-mix(in srgb,var(--c) 70%,#fff),var(--c) 60%,color-mix(in srgb,var(--c) 70%,#000));color:#1a1712;font-size:.78em;font-weight:800;text-shadow:none}
+.colors .sd-c.clash span{box-shadow:0 0 0 2px var(--rose)}
+.nt{display:grid;grid-template-columns:repeat(3,1fr);width:100%;height:100%;padding:2px;box-sizing:border-box}
+.nt i{font:600 9px/1 var(--body);color:var(--muted);font-style:normal;display:grid;place-items:center}
+.sd-pad{display:grid;grid-template-columns:repeat(var(--n),1fr);gap:5px}
+.sd-pad button{aspect-ratio:1/1.05;border-radius:10px;border:1px solid var(--line);background:var(--ink-2);color:var(--cream);font:700 18px var(--display);cursor:pointer;position:relative}
+.sd-pad button::after{content:"";position:absolute;left:50%;bottom:5px;width:14px;height:3px;border-radius:2px;background:var(--c);transform:translateX(-50%)}
+.sd-pad button:hover{border-color:var(--gold)}.sd-pad button.full{opacity:.35}
+.btn.ghost[aria-pressed="true"]{border-color:var(--gold);color:var(--gold-hi)}
+/* matching */
+.mt-wrap{position:relative;display:grid;grid-template-columns:1fr 1fr;gap:34px}
+.mt-lines{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;overflow:visible}
+.mt-path{stroke-dasharray:400;stroke-dashoffset:400;animation:draw .6s ease-out forwards}
+@keyframes draw{to{stroke-dashoffset:0}}
+.mt-col{display:flex;flex-direction:column;gap:8px}
+.mt-i{min-height:48px;border:1px solid var(--line);background:var(--ink-2);color:var(--cream);border-radius:12px;padding:8px 10px;font-size:13px;line-height:1.25;cursor:pointer;text-align:center;transition:transform .15s,border-color .15s,background .2s}
+.mt-i:hover{border-color:var(--gold)}
+.mt-i.pick{border-color:var(--gold-hi);background:rgba(227,182,46,.16);transform:scale(1.03)}
+.mt-i.done{border-color:var(--c);background:color-mix(in srgb,var(--c) 16%,transparent);cursor:default}
+.mt-i.nope{animation:nope .45s}
+@keyframes nope{25%{transform:translateX(-4px)}75%{transform:translateX(4px)}}
+/* numbers */
+.ns-target{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:10px 14px;border:1px solid var(--line);border-radius:12px;background:radial-gradient(100% 140% at 50% 0%,rgba(141,179,154,.14),transparent)}
+.ns-target b{font:800 34px/1 var(--display);color:var(--gold-hi)}
+.ns-target span{font-size:12.5px;color:var(--muted)}
+.ns-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
+.ns{aspect-ratio:1;border-radius:50% 50% 46% 46%;border:1px solid rgba(227,182,46,.3);background:radial-gradient(circle at 35% 28%,#4a443a,#2a2620 70%);color:var(--cream);font:800 22px var(--display);cursor:pointer;box-shadow:inset 0 -4px 8px rgba(0,0,0,.35);transition:transform .2s,background .3s}
+.ns.pick{background:radial-gradient(circle at 35% 28%,#f6da6b,#c18a33 75%);color:#2a241b;transform:translateY(-3px)}
+.ns.bloom{background:radial-gradient(circle,rgba(141,179,154,.3),transparent 70%);border-color:transparent;color:var(--sage);font-size:28px;animation:bloom .7s ease-out;box-shadow:none;cursor:default}
+@keyframes bloom{from{transform:scale(.3) rotate(-60deg);opacity:0}}
+.flow{display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:3px;padding:14px 6px;border:1px solid var(--line);border-radius:12px}
+.flow span{min-width:30px;padding:7px 5px;border-radius:10px;background:var(--ink-2);text-align:center;font:800 18px var(--display);color:var(--cream);animation:winIn .4s both}
+.flow span.fq{color:var(--gold-hi);border:1px dashed var(--gold)}
+.flow i{color:var(--gold-lo);font-style:normal}
+.flow-opts{display:grid;grid-template-columns:1fr 1fr}
+.flow-opts .opt{text-align:center;font:700 17px var(--display)}
+.scale{position:relative;padding:34px 10px 18px;border:1px solid var(--line);border-radius:12px;text-align:center}
+.beam{position:absolute;left:18%;right:18%;top:16px;height:4px;border-radius:2px;background:var(--gold);transition:transform .5s cubic-bezier(.3,1.6,.5,1);transform:rotate(-6deg)}
+.beam::after{content:"";position:absolute;left:50%;top:4px;border:8px solid transparent;border-top:12px solid var(--gold-lo);transform:translateX(-50%)}
+.beam.level{transform:rotate(0)}.beam.tipL{transform:rotate(-9deg)}.beam.tipR{transform:rotate(9deg)}
+.bal-eq{font:800 28px var(--display);color:var(--cream);letter-spacing:.02em;margin-top:14px;white-space:nowrap}.bal-eq b{color:var(--gold-hi)}
+/* memory */
+.glow-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;max-width:300px;margin:0 auto;width:100%}
+.lantern{aspect-ratio:1;border-radius:46% 46% 40% 40%;border:1px solid color-mix(in srgb,var(--c) 50%,transparent);background:radial-gradient(circle at 50% 60%,color-mix(in srgb,var(--c) 30%,#1d1b18),#1d1b18 72%);cursor:pointer;transition:background .25s,box-shadow .25s,transform .25s}
+.lantern.lit{background:radial-gradient(circle at 50% 55%,#fff8e0,var(--c) 45%,color-mix(in srgb,var(--c) 40%,#1d1b18));box-shadow:0 0 26px var(--c),0 0 6px var(--c) inset;transform:scale(1.06)}
+.lantern.dim{opacity:.45}
+.spot{display:grid;grid-template-columns:repeat(var(--cols),1fr);gap:8px}
+.sp{aspect-ratio:1;border-radius:14px;border:1px solid var(--line);background:var(--ink-2);font-size:30px;cursor:pointer;display:grid;place-items:center}
+.sp:disabled{cursor:default}.sp.right{border-color:var(--sage);background:rgba(141,179,154,.18)}.sp.wrong{border-color:var(--rose)}
+
 /* Music popover */
 .music{position:fixed;z-index:25;right:max(16px,env(safe-area-inset-right,0px));top:calc(var(--hdr,70px) + 8px);width:min(320px,calc(100% - 32px));background:var(--panel);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border:1px solid var(--gold);border-radius:14px;padding:14px;display:flex;flex-direction:column;gap:10px}
 .track{display:flex;align-items:center;gap:10px;border:1px solid var(--line);border-radius:10px;padding:8px 10px;background:var(--ink-2);cursor:pointer;text-align:left;color:var(--cream)}
@@ -421,12 +514,18 @@ input[type=range]{width:100%;accent-color:var(--gold)}
       <h2>Mind Garden</h2>
       <p class="muted">Games and puzzles that build a brighter, more flexible mind. Every gratitude you add plants a glowing flower in the garden.</p>
       <div class="mstats" id="mindStats"></div>
-      <div class="tabs" role="tablist" id="mindTabs">
-        <button role="tab" data-tab="trivia" aria-selected="true">Trivia</button>
+      <div class="tabs-label">Puzzles</div>
+      <div class="tabs two" role="tablist" id="mindTabs" aria-label="Mind Garden games">
+        <button role="tab" data-tab="cross" aria-selected="true">Crossword</button>
+        <button role="tab" data-tab="sudoku" aria-selected="false">Sudoku</button>
+        <button role="tab" data-tab="pairs" aria-selected="false">Matching</button>
+        <button role="tab" data-tab="numbers" aria-selected="false">Numbers</button>
+        <button role="tab" data-tab="match" aria-selected="false">Memory</button>
+        <span class="tabs-label" style="flex-basis:100%;margin:6px 0 0">Mind &amp; mood</span>
+        <button role="tab" data-tab="trivia" aria-selected="false">Trivia</button>
         <button role="tab" data-tab="reframe" aria-selected="false">Reframe It</button>
         <button role="tab" data-tab="teasers" aria-selected="false">Brain Teasers</button>
         <button role="tab" data-tab="words" aria-selected="false">Calm Words</button>
-        <button role="tab" data-tab="match" aria-selected="false">Memory Match</button>
         <button role="tab" data-tab="grateful" aria-selected="false">Gratitude</button>
       </div>
       <div id="mindGame" class="game"></div>
@@ -791,12 +890,191 @@ const TEASERS=[
  ['What can fill a room but takes up no space?',['light','sunlight','laughter','music'],'Open the curtains.']
 ];
 const WORDS=[['CALM','A quiet, steady feeling'],['HOPE','Believing better is possible'],['PEACE','Freedom from inner noise'],['BRAVE','Doing it scared'],['HEAL','To become whole again'],['GROWTH','Progress over time'],['BREATHE','Always with you'],['STRONG','Able to carry and recover'],['GRATEFUL','Noticing the good'],['BALANCE','Steady between extremes'],['KINDNESS','Warmth you give and receive'],['RESILIENT','Bending without breaking']];
-const AFFIRM=['I am worthy of care.','I can do hard things.','My feelings are valid.','I am growing every day.','Rest is productive too.','I deserve peace.','I am not alone.','One step at a time is enough.'];
-const GLYPHS=['☀','☾','✿','❖','✦','♥','☁','✺'];
+const AFFIRM=['I am worthy of care.','I can do hard things.','My feelings are valid.','I am growing every day.','Rest is productive too.','I deserve peace.','I am not alone.','One step at a time is enough.','My calm is always within reach.','I give myself grace.'];
+const GLYPHS=['☀','☾','✿','❖','✦','♥','☁','✺','☘','❦'];
 let mindTab='trivia';
 const norm=s=>s.toLowerCase().replace(/[^a-z0-9 ]/g,'').replace(/^(a|an|the|your) /,'').trim();
 function solved(){mind.solved++;saveMind();if(hooks.sparkle)hooks.sparkle()}
-function setMindTab(t){mindTab=t;$$('#mindTabs button').forEach(b=>b.setAttribute('aria-selected',b.dataset.tab===t));({trivia:gTrivia,reframe:gReframe,teasers:gTeasers,words:gWords,match:gMatch,grateful:gGrateful})[t]()}
+/* ---------- More Mind Garden games: crossword, sudoku, matching, numbers, memory ---------- */
+const PUZ=store.get('sb-puz',{cw:0,sd:0,mt:0,nm:0,glow:0});const savePuz=()=>store.set('sb-puz',PUZ);
+const PENTA=[392,440,523.25,587.33,659.25,783.99,880,1046.5,1174.66];
+function tone(f,len=1.2,vol=.09){if(!$('#chime').checked)return;try{ensureAudio();const o=actx.createOscillator(),o2=actx.createOscillator(),g=actx.createGain();o.frequency.value=f;o2.frequency.value=f*2;o.type='sine';o2.type='sine';const g2=actx.createGain();g2.gain.value=.25;o2.connect(g2).connect(g);g.gain.value=0;g.gain.linearRampToValueAtTime(vol,actx.currentTime+.03);g.gain.exponentialRampToValueAtTime(.0001,actx.currentTime+len);o.connect(g).connect(actx.destination);o.start();o2.start();o.stop(actx.currentTime+len+.05);o2.stop(actx.currentTime+len+.05)}catch(e){}}
+function seg(items,cur,onPick){return `<div class="seg" role="group">${items.map(([k,l])=>`<button type="button" data-seg="${k}" aria-pressed="${k===cur}">${l}</button>`).join('')}</div>`}
+function bindSeg(onPick){$$('#mindGame .seg button').forEach(b=>b.addEventListener('click',()=>onPick(b.dataset.seg)))}
+function celebrate(el,msg){chime(528);setTimeout(()=>chime(660),180);setTimeout(()=>chime(784),360);solved();if(el){el.innerHTML=msg;el.hidden=false;el.classList.add('win')}}
+const pickAff=()=>AFFIRM[Math.floor(Math.random()*AFFIRM.length)];
+
+/* ---- Crossword: a fresh grid built from a wellness word bank every time ---- */
+const CW_BANK=[['BREATHE','What you do slowly to settle a racing heart'],['CALM','Still water, steady mind'],['HOPE','A small light that says "not over yet"'],['REST','Productive, even when it doesn\'t feel like it'],['PEACE','What a quiet morning can bring'],['GROW','What gardens and people both do with care'],['TRUST','Built slowly, one kept promise at a time'],['SMILE','A curve that sets a lot of things straight'],['JOURNAL','Where tangled thoughts get written out'],['GRATITUDE','Noticing the good, on purpose'],['BALANCE','Steady between too much and too little'],['KINDNESS','It costs nothing and grows when given'],['STRENGTH','You have more of it than you think'],['HEAL','Mend from the inside out'],['WALK','Ten minutes of this can lift your mood'],['SLEEP','Seven hours or more, most nights'],['LAUGH','Medicine you can share'],['MUSIC','Golden Hour and Night Garden, for example'],['GARDEN','Where your gratitude flowers bloom'],['LOTUS','Flower that rises clean from muddy water'],['OCEAN','Its waves move like a long, slow breath'],['SUNRISE','A fresh start that every day gets'],['FRIEND','Someone to text when it\'s hard'],['BOUNDARY','A kind "no" that protects your energy'],['COURAGE','Doing it scared'],['THERAPY','Talking it through with a trained professional'],['MINDFUL','Present, without judgment'],['ANCHOR','What grounding gives you in a storm'],['BLOOM','Open up, like a flower in spring'],['SAFE','How everyone deserves to feel at home'],['JOY','Small, bright and worth noticing'],['LIGHT','It fills a room but takes up no space'],['REFRAME','See the same thing from a kinder angle'],['ROOTS','They keep a tree steady in the wind'],['NATURE','Trees, sky and water, good for the mind'],['STRETCH','Gentle movement for a stiff body'],['PAUSE','The space between feeling and reacting'],['TEA','A warm cup to wind down with'],['HUG','A squeeze that says "I\'m here"'],['UNITY','Togetherness as a community'],['AFFIRM','Say something true and kind to yourself'],['RESILIENT','Bending without breaking'],['SERENE','Untroubled, like a still lake'],['HARMONY','When things work well together'],['PATIENCE','A virtue for slow growth'],['LISTEN','Hear to understand, not to reply'],['MEDITATE','Sit quietly and watch the breath'],['RAINBOW','Color that follows the storm'],['WISDOM','What experience slowly teaches'],['CARE','Self-___: what you give yourself']];
+function cwBuild(n){const K=(x,y)=>x+','+y;let best=null;
+  for(let t=0;t<80;t++){const words=shuffle(CW_BANK).slice(0,n+10);words.sort((a,b)=>b[0].length-a[0].length);const first=words.shift();
+    const grid=new Map(),placed=[];let b={x0:0,x1:0,y0:0,y1:0};
+    const put=(w,clue,x,y,dir)=>{for(let i=0;i<w.length;i++){const k=K(x+(dir?0:i),y+(dir?i:0));const c=grid.get(k)||{ch:w[i],d:[]};c.d.push(dir);grid.set(k,c)}placed.push({w,clue,x,y,dir});b={x0:Math.min(b.x0,x),y0:Math.min(b.y0,y),x1:Math.max(b.x1,x+(dir?0:w.length-1)),y1:Math.max(b.y1,y+(dir?w.length-1:0))}};
+    const fits=(w,x,y,dir)=>{const dx=dir?0:1,dy=dir?1:0;if(grid.has(K(x-dx,y-dy))||grid.has(K(x+dx*w.length,y+dy*w.length)))return -1;let cross=0;
+      for(let i=0;i<w.length;i++){const cx=x+dx*i,cy=y+dy*i,c=grid.get(K(cx,cy));if(c){if(c.ch!==w[i]||c.d.includes(dir))return -1;cross++}else if(grid.has(K(cx+dy,cy+dx))||grid.has(K(cx-dy,cy-dx)))return -1}
+      const nx0=Math.min(b.x0,x),ny0=Math.min(b.y0,y),nx1=Math.max(b.x1,x+dx*(w.length-1)),ny1=Math.max(b.y1,y+dy*(w.length-1));if(nx1-nx0>=11||ny1-ny0>=11)return -1;return cross};
+    put(first[0],first[1],0,0,0);
+    for(const [w,clue] of words){if(placed.length>=n)break;if(placed.some(p=>p.w===w))continue;const opts=[];
+      for(const p of placed)for(let i=0;i<p.w.length;i++)for(let j=0;j<w.length;j++)if(p.w[i]===w[j]){const dir=1-p.dir,px=p.x+(p.dir?0:i),py=p.y+(p.dir?i:0),x=px-(dir?0:j),y=py-(dir?j:0);const c=fits(w,x,y,dir);if(c>0)opts.push({x,y,dir,c})}
+      if(opts.length){opts.sort((a,c)=>c.c-a.c||Math.random()-.5);const o=opts[0];put(w,clue,o.x,o.y,o.dir)}}
+    if(!best||placed.length>best.placed.length)best={placed,b};if(placed.length>=n)break}
+  const {placed,b}=best;placed.forEach(p=>{p.x-=b.x0;p.y-=b.y0});return {W:b.x1-b.x0+1,H:b.y1-b.y0+1,words:placed}}
+function gCross(){const size=store.get('sb-cw-size','m');const P=cwBuild({s:6,m:9,l:12}[size]);const {W,H}=P;
+  const cells={};P.words.forEach(p=>{for(let i=0;i<p.w.length;i++){const x=p.x+(p.dir?0:i),y=p.y+(p.dir?i:0),k=x+','+y;cells[k]=cells[k]||{x,y,ch:p.w[i],words:[]};cells[k].words[p.dir]=p}});
+  let num=1;const starts={};Object.values(cells).sort((a,c)=>a.y-c.y||a.x-c.x).forEach(c=>{if(P.words.some(p=>p.x===c.x&&p.y===c.y)){starts[c.x+','+c.y]=num++}});
+  P.words.forEach(p=>p.n=starts[p.x+','+p.y]);
+  const across=P.words.filter(p=>!p.dir).sort((a,c)=>a.n-c.n),down=P.words.filter(p=>p.dir).sort((a,c)=>a.n-c.n);
+  let html='';for(let y=0;y<H;y++)for(let x=0;x<W;x++){const c=cells[x+','+y];html+=c?`<div class="cw-cell" data-k="${x},${y}">${starts[x+','+y]?`<span class="cw-n">${starts[x+','+y]}</span>`:''}<input maxlength="2" autocomplete="off" autocapitalize="characters" spellcheck="false" aria-label="Row ${y+1} column ${x+1}"></div>`:'<div class="cw-blank"></div>'}
+  const clueList=(list,d)=>list.map(p=>`<li data-w="${P.words.indexOf(p)}"><b>${p.n}</b> ${esc(p.clue)} <span class="muted">(${p.w.length})</span></li>`).join('');
+  $('#mindGame').innerHTML=`<div class="progress"><span>Wellness crossword</span><span id="cwProg">0 of ${P.words.length} words</span></div>${seg([['s','Small'],['m','Medium'],['l','Large']],size)}
+  <div class="cw-active" id="cwClue">Tap a square to begin.</div><div class="cw-grid" style="--w:${W}">${html}</div>
+  <div class="row"><button class="btn ghost" id="cwCheck">Check</button><button class="btn ghost" id="cwHint">Reveal a letter</button><button class="btn ghost" id="cwNew">New puzzle</button></div>
+  <div class="affirm" id="cwWin" hidden></div>
+  <div class="cw-clues"><div><h3>Across</h3><ol>${clueList(across)}</ol></div><div><h3>Down</h3><ol>${clueList(down)}</ol></div></div>`;
+  bindSeg(s=>{store.set('sb-cw-size',s);gCross()});
+  const el=k=>$(`#mindGame .cw-cell[data-k="${k}"]`);let cur=null,dir=0,done=false;
+  const wordCells=p=>[...Array(p.w.length)].map((_,i)=>(p.x+(p.dir?0:i))+','+(p.y+(p.dir?i:0)));
+  const curWord=()=>cur&&(cells[cur].words[dir]||cells[cur].words[1-dir]);
+  const paint=()=>{$$('#mindGame .cw-cell').forEach(c=>c.classList.remove('on','hl'));$$('#mindGame .cw-clues li').forEach(l=>l.classList.remove('on'));const p=curWord();if(!p)return;dir=p.dir;wordCells(p).forEach(k=>el(k).classList.add('hl'));el(cur).classList.add('on');const li=$(`#mindGame .cw-clues li[data-w="${P.words.indexOf(p)}"]`);li&&li.classList.add('on');$('#cwClue').innerHTML=`<b>${p.n} ${p.dir?'Down':'Across'}</b> ${esc(p.clue)}`};
+  const focus=k=>{cur=k;el(k).querySelector('input').focus({preventScroll:true});paint()};
+  const progress=()=>{let ok=0;P.words.forEach(p=>{if(wordCells(p).every(k=>el(k).querySelector('input').value===cells[k].ch))ok++});$('#cwProg').textContent=`${ok} of ${P.words.length} words`;
+    P.words.forEach(p=>{const li=$(`#mindGame .cw-clues li[data-w="${P.words.indexOf(p)}"]`);li.classList.toggle('done',wordCells(p).every(k=>el(k).querySelector('input').value===cells[k].ch))});
+    if(ok===P.words.length&&!done){done=true;PUZ.cw++;savePuz();$$('#mindGame .cw-cell').forEach((c,i)=>setTimeout(()=>c.classList.add('glow'),i*18));celebrate($('#cwWin'),`Puzzle complete! ✿<br><span class="small muted" style="font-weight:400">${pickAff()}</span><br><button class="btn" id="cwAgain" style="margin-top:10px">Another crossword</button>`);$('#cwAgain').addEventListener('click',gCross)}};
+  const step=(d)=>{const p=curWord();if(!p)return;const ks=wordCells(p);const i=ks.indexOf(cur)+d;if(i>=0&&i<ks.length)focus(ks[i])};
+  $$('#mindGame .cw-cell').forEach(c=>{const k=c.dataset.k,inp=c.querySelector('input');
+    inp.addEventListener('pointerdown',()=>{if(cur===k&&cells[k].words[1-dir])dir=1-dir;else if(!cells[k].words[dir])dir=1-dir;setTimeout(()=>focus(k),0)});
+    inp.addEventListener('focus',()=>{if(cur!==k){cur=k;if(!cells[k].words[dir])dir=1-dir;paint()}});
+    inp.addEventListener('input',()=>{const v=inp.value.toUpperCase().replace(/[^A-Z]/g,'');inp.value=v.slice(-1);c.classList.remove('bad');if(inp.value){tone(PENTA[(inp.value.charCodeAt(0))%PENTA.length],.6,.04);step(1)}progress()});
+    inp.addEventListener('keydown',e=>{const [x,y]=k.split(',').map(Number);const mv=(dx,dy)=>{const n=(x+dx)+','+(y+dy);if(cells[n]){e.preventDefault();dir=dx?0:1;focus(n)}};
+      if(e.key==='Backspace'&&!inp.value){e.preventDefault();step(-1);const p=curWord();if(p&&cur)el(cur).querySelector('input').value='';progress()}
+      else if(e.key==='ArrowRight')mv(1,0);else if(e.key==='ArrowLeft')mv(-1,0);else if(e.key==='ArrowDown')mv(0,1);else if(e.key==='ArrowUp')mv(0,-1);
+      else if(e.key===' '){e.preventDefault();if(cells[k].words[1-dir]){dir=1-dir;paint()}}})});
+  $$('#mindGame .cw-clues li').forEach(li=>li.addEventListener('click',()=>{const p=P.words[+li.dataset.w];dir=p.dir;const ks=wordCells(p);focus(ks.find(k=>!el(k).querySelector('input').value)||ks[0])}));
+  $('#cwCheck').addEventListener('click',()=>{let bad=0;Object.keys(cells).forEach(k=>{const i=el(k).querySelector('input');if(i.value&&i.value!==cells[k].ch){el(k).classList.add('bad');bad++}});$('#cwClue').innerHTML=bad?`${bad} letter${bad>1?'s':''} to rethink. They're softly marked.`:'Everything you\'ve filled in is right. Keep going!'});
+  $('#cwHint').addEventListener('click',()=>{const p=curWord()||P.words[0];const k=wordCells(p).find(k=>el(k).querySelector('input').value!==cells[k].ch);if(!k)return;const i=el(k).querySelector('input');i.value=cells[k].ch;el(k).classList.remove('bad');el(k).classList.add('given');focus(k);progress()});
+  $('#cwNew').addEventListener('click',gCross)}
+
+/* ---- Sudoku: freshly generated, one solution, gentle feedback ---- */
+const SD_COLORS=['#E3B62E','#8DB39A','#E08A7A','#7FA7D8','#B79CDB','#E9A15B','#6FC2B8','#D98FB5','#C9C36A'];
+function sdMake(N,givens){const [br,bc]=N===6?[2,3]:[3,3];const g=Array(N*N).fill(0);
+  const cand=(g,i)=>{const r=Math.floor(i/N),c=i%N,used=new Set();for(let k=0;k<N;k++){used.add(g[r*N+k]);used.add(g[k*N+c])}const r0=r-r%br,c0=c-c%bc;for(let y=0;y<br;y++)for(let x=0;x<bc;x++)used.add(g[(r0+y)*N+c0+x]);const out=[];for(let v=1;v<=N;v++)if(!used.has(v))out.push(v);return out};
+  const fill=()=>{const i=g.indexOf(0);if(i<0)return true;for(const v of shuffle(cand(g,i))){g[i]=v;if(fill())return true}g[i]=0;return false};fill();const sol=g.slice();
+  const count=(h,lim)=>{let n=0;const rec=()=>{if(n>=lim)return;let bi=-1,bc2=null;for(let i=0;i<h.length;i++)if(!h[i]){const c=cand(h,i);if(!c.length)return;if(!bc2||c.length<bc2.length){bi=i;bc2=c;if(c.length===1)break}}if(bi<0){n++;return}for(const v of bc2){h[bi]=v;rec();h[bi]=0;if(n>=lim)return}};rec();return n};
+  let filled=N*N;for(const i of shuffle([...Array(N*N).keys()])){if(filled<=givens)break;const v=g[i];g[i]=0;if(count(g.slice(),2)!==1)g[i]=v;else filled--}
+  return {N,br,bc,puz:g,sol}}
+function gSudoku(){const lvl=store.get('sb-sd-lvl','gentle');const colors=store.get('sb-sd-col',false);const cfg={gentle:[6,16],calm:[9,40],focus:[9,31]}[lvl];const S=sdMake(cfg[0],cfg[1]);const {N,br,bc}=S;
+  const val=S.puz.slice(),fixed=S.puz.map(v=>!!v),notes=[...Array(N*N)].map(()=>new Set());let sel=val.indexOf(0),noting=false,done=false,hints=0;const t0=Date.now();
+  $('#mindGame').innerHTML=`<div class="progress"><span>Bloom Sudoku</span><span id="sdInfo">Fill every row, column and box with 1–${N}</span></div>${seg([['gentle','Gentle 6×6'],['calm','Calm 9×9'],['focus','Focused 9×9']],lvl)}
+  <div class="sd-grid ${colors?'colors':''}" id="sdG" style="--n:${N};--br:${br};--bc:${bc}"></div>
+  <div class="sd-pad" style="--n:${N}">${[...Array(N)].map((_,k)=>`<button type="button" data-v="${k+1}" style="--c:${SD_COLORS[k]}">${k+1}</button>`).join('')}</div>
+  <div class="row"><button class="btn ghost" id="sdNote" aria-pressed="false">✎ Notes off</button><button class="btn ghost" id="sdErase">Erase</button><button class="btn ghost" id="sdHint">Hint</button><button class="btn ghost" id="sdCol" aria-pressed="${colors}">${colors?'Numbers':'Garden colors'}</button><button class="btn ghost" id="sdNew">New puzzle</button></div>
+  <div class="affirm" id="sdWin" hidden></div>`;
+  bindSeg(s=>{store.set('sb-sd-lvl',s);gSudoku()});
+  const G=$('#sdG');G.innerHTML=val.map((_,i)=>{const r=Math.floor(i/N),c=i%N;return `<button type="button" class="sd-c${(c+1)%bc===0&&c<N-1?' br':''}${(r+1)%br===0&&r<N-1?' bb':''}${fixed[i]?' fix':''}" data-i="${i}" aria-label="Row ${r+1} column ${c+1}"></button>`}).join('');
+  const peers=i=>{const r=Math.floor(i/N),c=i%N,r0=r-r%br,c0=c-c%bc;const s=new Set();for(let k=0;k<N;k++){s.add(r*N+k);s.add(k*N+c)}for(let y=0;y<br;y++)for(let x=0;x<bc;x++)s.add((r0+y)*N+c0+x);s.delete(i);return s};
+  const draw=()=>{const P=sel>=0?peers(sel):new Set();[...G.children].forEach((b,i)=>{const v=val[i];b.classList.toggle('sel',i===sel);b.classList.toggle('peer',P.has(i));b.classList.toggle('same',!!v&&sel>=0&&v===val[sel]&&i!==sel);b.classList.toggle('clash',!!v&&[...peers(i)].some(j=>val[j]===v));
+      b.style.setProperty('--c',v?SD_COLORS[v-1]:'transparent');b.innerHTML=v?`<span>${v}</span>`:notes[i].size?`<span class="nt" style="--n:${N}">${[...Array(N)].map((_,k)=>`<i>${notes[i].has(k+1)?k+1:''}</i>`).join('')}</span>`:''});
+    $$('#mindGame .sd-pad button').forEach(b=>{const v=+b.dataset.v;b.classList.toggle('full',val.filter(x=>x===v).length>=N)})};
+  const place=v=>{if(sel<0||fixed[sel]||done)return;if(noting&&v){notes[sel].has(v)?notes[sel].delete(v):notes[sel].add(v);draw();return}val[sel]=val[sel]===v?0:v;notes[sel].clear();if(v){peers(sel).forEach(j=>notes[j].delete(v));tone(PENTA[v-1],.9,.05)}draw();check()};
+  const check=()=>{const empty=val.filter(v=>!v).length;$('#sdInfo').textContent=empty?`${empty} square${empty>1?'s':''} to go`:'Almost there…';if(val.every((v,i)=>v===S.sol[i])&&!done){done=true;PUZ.sd++;savePuz();[...G.children].forEach((b,i)=>setTimeout(()=>b.classList.add('glow'),(Math.floor(i/N)+i%N)*45));const s=Math.round((Date.now()-t0)/1000);celebrate($('#sdWin'),`Every square in bloom! ✿<br><span class="small muted" style="font-weight:400">${Math.floor(s/60)}m ${s%60}s${hints?` · ${hints} hint${hints>1?'s':''}`:''} · ${pickAff()}</span><br><button class="btn" id="sdAgain" style="margin-top:10px">Another puzzle</button>`);$('#sdAgain').addEventListener('click',gSudoku)}};
+  G.addEventListener('click',e=>{const b=e.target.closest('.sd-c');if(!b)return;sel=+b.dataset.i;draw()});
+  $$('#mindGame .sd-pad button').forEach(b=>b.addEventListener('click',()=>place(+b.dataset.v)));
+  $('#sdErase').addEventListener('click',()=>{if(sel>=0&&!fixed[sel]){val[sel]=0;notes[sel].clear();draw();check()}});
+  $('#sdNote').addEventListener('click',e=>{noting=!noting;e.target.setAttribute('aria-pressed',noting);e.target.textContent=noting?'✎ Notes on':'✎ Notes off'});
+  $('#sdHint').addEventListener('click',()=>{let i=sel>=0&&!fixed[sel]&&val[sel]!==S.sol[sel]?sel:val.findIndex((v,k)=>v!==S.sol[k]);if(i<0)return;val[i]=S.sol[i];fixed[i]=true;notes[i].clear();G.children[i].classList.add('fix','given');hints++;sel=i;draw();check()});
+  $('#sdCol').addEventListener('click',()=>{store.set('sb-sd-col',!colors);G.classList.toggle('colors');const on=G.classList.contains('colors');$('#sdCol').textContent=on?'Numbers':'Garden colors';store.set('sb-sd-col',on)});
+  $('#sdNew').addEventListener('click',gSudoku);
+  G.addEventListener('keydown',e=>{if(sel<0)return;const r=Math.floor(sel/N),c=sel%N;const mv={ArrowUp:[-1,0],ArrowDown:[1,0],ArrowLeft:[0,-1],ArrowRight:[0,1]}[e.key];if(mv){e.preventDefault();sel=((r+mv[0]+N)%N)*N+(c+mv[1]+N)%N;G.children[sel].focus();draw()}else if(/^[1-9]$/.test(e.key)&&+e.key<=N)place(+e.key);else if(e.key==='Backspace'||e.key==='Delete'||e.key==='0'){if(!fixed[sel]){val[sel]=0;draw();check()}}else if(e.key==='n'){$('#sdNote').click()}});
+  draw()}
+
+/* ---- Matching: connect each idea to its partner ---- */
+const MATCH_SETS={
+ tools:['Coping tools',[['Box breathing','Slows a racing heart'],['Journaling','Untangles busy thoughts'],['5-4-3-2-1','Brings you back to right now'],['A short walk','Lifts mood with movement'],['Saying no','Protects your energy'],['Calling a friend','Reminds you you\'re not alone'],['Body scan','Releases hidden tension'],['Gratitude list','Turns attention toward the good'],['Music','Shifts your mood in minutes'],['A screen break','Rests tired eyes and mind']]],
+ needs:['Feelings & needs',[['Tired','Rest'],['Lonely','Connection'],['Overwhelmed','One small step'],['Anxious','A slow breath'],['Frustrated','A pause before reacting'],['Sad','Comfort'],['Restless','Movement'],['Proud','Celebration'],['Confused','Clarity'],['Hurt','Gentleness']]],
+ affirm:['Finish the affirmation',[['I am worthy','of rest and care'],['I can do','hard things'],['My feelings','are valid'],['Progress','over perfection'],['I am allowed','to ask for help'],['Today, I choose','peace'],['I am growing','at my own pace'],['My voice','matters'],['I deserve','to take up space'],['This feeling','will pass']]],
+ nature:['Nature wisdom',[['Roots','keep a tree steady'],['Rain','helps the garden grow'],['Seeds','bloom in their own time'],['The moon','glows through the dark'],['A river','flows around the rocks'],['Sunrise','begins every day fresh'],['Bamboo','bends but doesn\'t break'],['The tide','always returns'],['Butterflies','change and then fly'],['Mountains','stand firm through storms']]]};
+function gPairs(){const setK=store.get('sb-mt-set','tools');const [label,all]=MATCH_SETS[setK];const pairs=shuffle(all).slice(0,5);const L=shuffle(pairs.map((p,i)=>({t:p[0],i}))),Rt=shuffle(pairs.map((p,i)=>({t:p[1],i})));
+  const HUES=['#E3B62E','#8DB39A','#E08A7A','#7FA7D8','#B79CDB'];let pick=null,made=0,miss=0;
+  $('#mindGame').innerHTML=`<div class="progress"><span>Calm Connections</span><span id="mtInfo">Tap one on each side to connect them</span></div>${seg(Object.entries(MATCH_SETS).map(([k,v])=>[k,v[0]]),setK)}
+  <div class="mt-wrap" id="mtW"><svg class="mt-lines" id="mtS" aria-hidden="true"></svg><div class="mt-col">${L.map(x=>`<button type="button" class="mt-i" data-s="L" data-i="${x.i}">${esc(x.t)}</button>`).join('')}</div><div class="mt-col">${Rt.map(x=>`<button type="button" class="mt-i" data-s="R" data-i="${x.i}">${esc(x.t)}</button>`).join('')}</div></div>
+  <div class="affirm" id="mtWin" hidden></div><div class="row"><button class="btn ghost" id="mtNew">New round</button></div>`;
+  bindSeg(s=>{store.set('sb-mt-set',s);gPairs()});
+  const W=$('#mtW'),S=$('#mtS');const links=[];
+  const drawLines=()=>{const r0=W.getBoundingClientRect();S.setAttribute('viewBox',`0 0 ${r0.width} ${r0.height}`);S.innerHTML=links.map(([a,b,c])=>{const ra=a.getBoundingClientRect(),rb=b.getBoundingClientRect();const x1=ra.right-r0.left,y1=ra.top+ra.height/2-r0.top,x2=rb.left-r0.left,y2=rb.top+rb.height/2-r0.top,mx=(x1+x2)/2;return `<path d="M${x1} ${y1} C${mx} ${y1} ${mx} ${y2} ${x2} ${y2}" stroke="${c}" stroke-width="2.5" fill="none" stroke-linecap="round" class="mt-path"/><circle cx="${x1}" cy="${y1}" r="4" fill="${c}"/><circle cx="${x2}" cy="${y2}" r="4" fill="${c}"/>`}).join('')};
+  new ResizeObserver(drawLines).observe(W);
+  $$('#mtW .mt-i').forEach(b=>b.addEventListener('click',()=>{if(b.classList.contains('done'))return;
+    if(!pick||pick.dataset.s===b.dataset.s){if(pick)pick.classList.remove('pick');pick=b;b.classList.add('pick');tone(PENTA[2],.5,.04);return}
+    const a=pick.dataset.s==='L'?pick:b,c=pick.dataset.s==='L'?b:pick;pick.classList.remove('pick');pick=null;
+    if(a.dataset.i===c.dataset.i){const col=HUES[made%HUES.length];[a,c].forEach(x=>{x.classList.add('done');x.style.setProperty('--c',col)});links.push([a,c,col]);made++;tone(PENTA[3+made],1.2,.07);drawLines();
+      $('#mtInfo').textContent=`${made} of 5 connected`;if(made===5){PUZ.mt++;savePuz();celebrate($('#mtWin'),`All connected${miss?'':' on the first try'}! ✿<br><span class="small muted" style="font-weight:400">${pickAff()}</span><br><button class="btn" id="mtAgain" style="margin-top:10px">Next round</button>`);$('#mtAgain').addEventListener('click',gPairs)}}
+    else{miss++;[a,c].forEach(x=>{x.classList.add('nope');setTimeout(()=>x.classList.remove('nope'),500)});$('#mtInfo').textContent='Not that pair. Try another.'}}));
+  $('#mtNew').addEventListener('click',gPairs)}
+
+/* ---- Number games: Petal Sums and Number Flow ---- */
+function gNumbers(){const mode=store.get('sb-nm-mode','sums');$('#mindGame').innerHTML=`<div class="progress"><span>Number garden</span><span id="nmInfo"></span></div>${seg([['sums','Petal Sums'],['flow','Number Flow'],['balance','Balance']],mode)}<div id="nmBody" class="game"></div>`;bindSeg(s=>{store.set('sb-nm-mode',s);gNumbers()});({sums:nmSums,flow:nmFlow,balance:nmBalance})[mode]()}
+function nmSums(){const tiles=[...Array(16)].map(()=>1+Math.floor(Math.random()*9));const gone=new Set();let picked=new Set(),target=0,rounds=0;
+  const B=$('#nmBody');B.innerHTML=`<p class="small muted">Tap stones that add up to the target. Each sum you make blooms into a flower.</p><div class="ns-target"><span>Target</span><b id="nsT"></b><span id="nsSum">Your sum: 0</span></div><div class="ns-grid">${tiles.map((v,i)=>`<button type="button" class="ns" data-i="${i}">${v}</button>`).join('')}</div><div class="affirm" id="nsWin" hidden></div><div class="row"><button class="btn ghost" id="nsClear">Clear selection</button><button class="btn ghost" id="nsNew">New garden</button></div>`;
+  const newTarget=()=>{const left=tiles.map((v,i)=>i).filter(i=>!gone.has(i));if(!left.length){PUZ.nm++;savePuz();celebrate($('#nsWin'),`The whole garden is in bloom! ✿<br><span class="small muted" style="font-weight:400">${rounds} sums made · ${pickAff()}</span><br><button class="btn" id="nsAgain" style="margin-top:10px">Plant a new garden</button>`);$('#nsAgain').addEventListener('click',nmSums);$('#nsT').textContent='✿';return}
+    const k=Math.min(left.length,left.length<=3?left.length:2+Math.floor(Math.random()*2));target=shuffle(left).slice(0,k).reduce((s,i)=>s+tiles[i],0);$('#nsT').textContent=target;$('#nmInfo').textContent=`${16-gone.size} stones left`};
+  const upd=()=>{const s=[...picked].reduce((a,i)=>a+tiles[i],0);$('#nsSum').textContent=`Your sum: ${s}`;$$('#nmBody .ns').forEach(b=>b.classList.toggle('pick',picked.has(+b.dataset.i)));
+    if(s===target&&picked.size){rounds++;picked.forEach(i=>{gone.add(i);const b=$(`#nmBody .ns[data-i="${i}"]`);b.classList.add('bloom');b.disabled=true;b.innerHTML='✿'});tone(PENTA[Math.min(8,rounds%9)],1.4,.08);picked=new Set();setTimeout(()=>{upd();newTarget()},350)}
+    else if(s>target){$('#nsSum').textContent=`Over by ${s-target}. Try a different stone.`;setTimeout(()=>{picked=new Set();upd()},900)}};
+  $$('#nmBody .ns').forEach(b=>b.addEventListener('click',()=>{const i=+b.dataset.i;if(gone.has(i))return;picked.has(i)?picked.delete(i):picked.add(i);tone(PENTA[tiles[i]-1],.4,.035);upd()}));
+  $('#nsClear').addEventListener('click',()=>{picked=new Set();upd()});$('#nsNew').addEventListener('click',nmSums);newTarget()}
+function flowSeq(){const r=(a,b)=>a+Math.floor(Math.random()*(b-a+1));const kinds=[
+  ()=>{const a=r(1,20),d=r(2,9);return {s:[...Array(6)].map((_,i)=>a+d*i),why:`Add ${d} each time.`}},
+  ()=>{const a=r(60,99),d=r(3,8);return {s:[...Array(6)].map((_,i)=>a-d*i),why:`Subtract ${d} each time.`}},
+  ()=>{const a=r(1,4),m=r(2,3);return {s:[...Array(6)].map((_,i)=>a*m**i),why:`Multiply by ${m} each time.`}},
+  ()=>{const a=r(1,9),b=r(1,9);const s=[a,b];while(s.length<7)s.push(s.at(-1)+s.at(-2));return {s:s.slice(0,7),why:'Each number is the sum of the two before it.'}},
+  ()=>{const o=r(1,4);return {s:[...Array(6)].map((_,i)=>(i+o)**2),why:'These are square numbers.'}},
+  ()=>{const a=r(1,10),x=r(2,6),y=r(7,12);const s=[a];for(let i=1;i<7;i++)s.push(s.at(-1)+(i%2?x:y));return {s,why:`Alternate adding ${x} and ${y}.`}},
+  ()=>{const a=r(1,6);const s=[a];for(let i=1;i<6;i++)s.push(s.at(-1)+i+1);return {s,why:'The amount added grows by one each step.'}},
+  ()=>{const a=r(2,6);const s=[a];for(let i=1;i<6;i++)s.push(s.at(-1)*2+1);return {s,why:'Double it, then add one.'}}];
+  return kinds[Math.floor(Math.random()*kinds.length)]()}
+function nmFlow(){let i=0,score=0;const B=$('#nmBody');const draw=()=>{const {s,why}=flowSeq();const ans=s.at(-1),show=s.slice(0,-1);const opts=shuffle([...new Set([ans,ans+1+Math.floor(Math.random()*3),ans-1-Math.floor(Math.random()*3),ans+(show.at(-1)-show.at(-2))||ans+5])].filter(x=>x!==null)).slice(0,4);if(!opts.includes(ans))opts[0]=ans;
+    $('#nmInfo').textContent=`Pattern ${i+1} of 8 · Score ${score}`;
+    B.innerHTML=`<p class="small muted">What comes next? Find the gentle rhythm in each pattern.</p><div class="flow">${show.map((v,k)=>`<span style="animation-delay:${k*90}ms">${v}</span>`).join('<i>›</i>')}<i>›</i><span class="fq">?</span></div><div class="opts flow-opts">${shuffle(opts).map(o=>`<button type="button" class="opt" data-v="${o}">${o}</button>`).join('')}</div><p class="explain" hidden></p><button class="btn" id="flNext" hidden>${i<7?'Next pattern':'See results'}</button>`;
+    $$('#nmBody .opt').forEach(b=>b.addEventListener('click',()=>{$$('#nmBody .opt').forEach(x=>{x.disabled=true;if(+x.dataset.v===ans)x.classList.add('right')});const ok=+b.dataset.v===ans;if(ok){score++;tone(PENTA[4+score%4],1,.07)}else b.classList.add('wrong');$('#nmBody .flow .fq').textContent=ans;const ex=$('#nmBody .explain');ex.hidden=false;ex.textContent=(ok?'Yes! ':'Good try. ')+why;$('#flNext').hidden=false}));
+    $('#flNext').addEventListener('click',()=>{i++;if(i<8)draw();else{if(score>=6){PUZ.nm++;savePuz();solved()}B.innerHTML=`<div class="affirm">${score} of 8 patterns</div><p class="muted" style="text-align:center">${score>=7?'Your pattern sense is wonderful.':score>=4?'Nice flow. Patterns get easier the more you see them.':'Every pattern you see trains your brain. Well done for playing.'}</p><button class="btn" id="flAgain">Play again</button>`;$('#flAgain').addEventListener('click',nmFlow)}})};draw()}
+function nmBalance(){let i=0,streak=0;const B=$('#nmBody');const r=(a,b)=>a+Math.floor(Math.random()*(b-a+1));
+  const make=()=>{const k=r(0,3);if(k===0){const a=r(3,40),b=r(2,40);return [`${a} + ? = ${a+b}`,b]}if(k===1){const a=r(20,80),b=r(2,a-1);return [`${a} − ? = ${a-b}`,b]}if(k===2){const a=r(2,12),b=r(2,12);return [`${a} × ? = ${a*b}`,b]}const b=r(2,12),q=r(2,12);return [`${b*q} ÷ ? = ${q}`,b]};
+  const draw=()=>{const [eq,ans]=make();$('#nmInfo').textContent=`Streak ${streak}`;B.innerHTML=`<p class="small muted">Find the missing number that keeps the scale balanced. No timer, no pressure.</p><div class="scale"><div class="beam" id="beam"></div><div class="bal-eq">${eq.replace('?','<b>?</b>')}</div></div><form id="blF" class="row" style="flex-wrap:nowrap"><input type="text" inputmode="numeric" id="blA" placeholder="?" aria-label="Missing number" autocomplete="off"><button class="btn" style="flex:none">Balance</button></form><p class="explain" id="blFb" hidden></p>`;
+    const inp=$('#blA');setTimeout(()=>inp.focus({preventScroll:true}),50);
+    $('#blF').addEventListener('submit',e=>{e.preventDefault();const v=parseInt(inp.value,10);const fb=$('#blFb');fb.hidden=false;const beam=$('#beam');
+      if(v===ans){streak++;beam.className='beam level';fb.textContent=pickFresh(['Perfectly balanced.','Steady and even.','Right on.','Lovely, balanced.'],SAGE.closeLog,3);tone(PENTA[Math.min(8,2+streak%7)],1.1,.07);if(streak%5===0){PUZ.nm++;savePuz();solved();fb.textContent+=` ${streak} in a row! ✿`}setTimeout(draw,1100)}
+      else{beam.className='beam '+(v<ans?'tipL':'tipR');fb.textContent=isNaN(v)?'Type a number to try.':v<ans?'A little higher.':'A little lower.'}})};draw()}
+
+/* ---- Memory: Memory Match (three sizes) and Glow Sequence ---- */
+function gMemory(){const mode=store.get('sb-mem-mode','match');$('#mindGame').innerHTML=`<div class="progress"><span>Memory garden</span><span id="memInfo"></span></div>${seg([['match','Memory Match'],['glow','Glow Sequence'],['spot','What Changed?']],mode)}<div id="memBody" class="game"></div>`;bindSeg(s=>{store.set('sb-mem-mode',s);gMemory()});({match:memMatch,glow:memGlow,spot:memSpot})[mode]()}
+function memMatch(){const size=store.get('sb-mem-size',8);const B=$('#memBody');const deck=shuffle([...[...Array(size).keys()],...Array(size).keys()]);let open=[],moves=0,done=0,lock=false;const t0=Date.now();
+  B.innerHTML=`${seg([['6','Easy · 6 pairs'],['8','Classic · 8 pairs'],['10','Deep · 10 pairs']],String(size)).replace('class="seg"','class="seg sm" id="mmSeg"')}<div class="memory" style="grid-template-columns:repeat(${size===6?4:size===8?4:5},1fr)">${deck.map((g,k)=>`<button class="card-m" data-k="${k}" data-g="${g}" aria-label="Hidden card">${GLYPHS[g]}</button>`).join('')}</div><div class="affirm" id="maff">Match pairs to reveal affirmations</div>`;
+  $$('#mmSeg button').forEach(b=>b.addEventListener('click',()=>{store.set('sb-mem-size',+b.dataset.seg);memMatch()}));$('#memInfo').textContent='Moves 0';
+  $$('#memBody .card-m').forEach(c=>c.addEventListener('click',()=>{if(lock||c.classList.contains('up')||c.classList.contains('done'))return;c.classList.add('up');c.setAttribute('aria-label',GLYPHS[c.dataset.g]);open.push(c);tone(PENTA[+c.dataset.g%9],.5,.035);
+    if(open.length===2){moves++;$('#memInfo').textContent='Moves '+moves;const [a,b]=open;if(a.dataset.g===b.dataset.g){a.classList.add('done');b.classList.add('done');open=[];done++;tone(PENTA[Math.min(8,done)],1.3,.07);$('#maff').textContent=AFFIRM[+a.dataset.g%AFFIRM.length];
+        if(done===size){celebrate($('#maff'),`All matched in ${moves} moves and ${Math.round((Date.now()-t0)/1000)} seconds. ✿<br><button class="btn" id="mAgain" style="margin-top:10px">Play again</button>`);$('#mAgain').addEventListener('click',memMatch)}}
+      else{lock=true;setTimeout(()=>{a.classList.remove('up');b.classList.remove('up');a.setAttribute('aria-label','Hidden card');b.setAttribute('aria-label','Hidden card');open=[];lock=false},1000)}}}))}
+function memGlow(){const B=$('#memBody');const COLS=['#E3B62E','#8DB39A','#E08A7A','#7FA7D8','#B79CDB','#E9A15B','#6FC2B8','#D98FB5','#C9C36A'];let seq=[],pos=0,busy=true,round=0;
+  B.innerHTML=`<p class="small muted">Watch the lanterns glow, then tap them in the same order. Take your time. If you slip, the pattern simply plays again.</p><div class="glow-grid">${COLS.map((c,i)=>`<button type="button" class="lantern" data-i="${i}" style="--c:${c}" aria-label="Lantern ${i+1}"></button>`).join('')}</div><div class="affirm" id="glMsg">Ready when you are</div><div class="row"><button class="btn" id="glGo">Begin</button></div>`;
+  const L=$$('#memBody .lantern');$('#memInfo').textContent=`Best: ${PUZ.glow||0}`;
+  const flash=(i,ms=520)=>{L[i].classList.add('lit');tone(PENTA[i],1,.08);setTimeout(()=>L[i].classList.remove('lit'),ms)};
+  const play=()=>{busy=true;pos=0;$('#glMsg').textContent='Watch…';const gap=Math.max(480,820-seq.length*30);seq.forEach((v,k)=>setTimeout(()=>flash(v,gap*.65),600+k*gap));setTimeout(()=>{busy=false;$('#glMsg').textContent='Your turn'},600+seq.length*gap)};
+  const next=()=>{seq.push(Math.floor(Math.random()*9));round=seq.length;play()};
+  L.forEach(b=>b.addEventListener('click',()=>{if(busy)return;const i=+b.dataset.i;flash(i,300);
+    if(i===seq[pos]){pos++;if(pos===seq.length){busy=true;if(seq.length>(PUZ.glow||0)){PUZ.glow=seq.length;savePuz();$('#memInfo').textContent=`Best: ${PUZ.glow}`}if(seq.length%5===0)solved();$('#glMsg').textContent=pickFresh([`Beautiful. ${seq.length} in a row.`,`Lovely memory. Here comes ${seq.length+1}.`,`Steady and sure. ${seq.length} lanterns.`],SAGE.closeLog,3);setTimeout(next,1200)}}
+    else{busy=true;$('#glMsg').textContent='Gentle slip. Let\'s watch it once more.';L.forEach(x=>x.classList.add('dim'));setTimeout(()=>{L.forEach(x=>x.classList.remove('dim'));play()},1300)}}));
+  $('#glGo').addEventListener('click',()=>{$('#glGo').parentElement.remove();seq=[];next()})}
+const SPOT=['✿','❀','☀','☾','✦','❖','♥','☁','✺','❦','☘','✧','◈','❂'];
+function memSpot(){let lvl=0,score=0;const B=$('#memBody');const round=()=>{const n=Math.min(12,4+lvl);const items=shuffle(SPOT).slice(0,n);const cols=shuffle(['#E3B62E','#8DB39A','#E08A7A','#7FA7D8','#B79CDB','#E9A15B']);const cl=items.map((_,i)=>cols[i%cols.length]);
+    const view=(arr,c,clickable)=>`<div class="spot" style="--cols:${n<=4?4:n<=6?3:4}">${arr.map((g,i)=>`<button type="button" class="sp" data-i="${i}" style="color:${c[i]}" ${clickable?'':'tabindex="-1"'}>${g}</button>`).join('')}</div>`;
+    $('#memInfo').textContent=`Level ${lvl+1} · Found ${score}`;let sec=Math.max(3,6-Math.floor(lvl/3));
+    B.innerHTML=`<p class="small muted">Study the garden. When it hides, one symbol will change. Can you spot which one?</p>${view(items,cl,false)}<div class="affirm" id="spMsg">Memorize… ${sec}</div>`;
+    const tick=setInterval(()=>{sec--;const m=$('#spMsg');if(!m){clearInterval(tick);return}if(sec>0)m.textContent=`Memorize… ${sec}`;else{clearInterval(tick);const ch=Math.floor(Math.random()*n);const after=items.slice();const swap=SPOT.find(g=>!items.includes(g));after[ch]=swap;
+      B.innerHTML=`<p class="small muted">Which one changed?</p>${view(after,cl,true)}<div class="affirm" id="spMsg">Tap the new symbol</div>`;
+      $$('#memBody .sp').forEach(b=>b.addEventListener('click',()=>{const ok=+b.dataset.i===ch;$$('#memBody .sp').forEach(x=>x.disabled=true);$$('#memBody .sp')[ch].classList.add('right');
+        if(ok){score++;lvl++;tone(PENTA[Math.min(8,lvl)],1.1,.07);$('#spMsg').textContent=pickFresh(['Sharp eyes!','You spotted it.','Wonderful focus.'],SAGE.closeLog,2);if(score%5===0)solved()}else{b.classList.add('wrong');$('#spMsg').textContent='This one changed. Let\'s try another.';lvl=Math.max(0,lvl-1)}
+        setTimeout(round,1500)}))}},1000)};round()}
+
+function setMindTab(t){mindTab=t;$$('#mindTabs button').forEach(b=>b.setAttribute('aria-selected',b.dataset.tab===t));({cross:gCross,sudoku:gSudoku,pairs:gPairs,numbers:gNumbers,trivia:gTrivia,reframe:gReframe,teasers:gTeasers,words:gWords,match:gMemory,grateful:gGrateful})[t]()}
 $$('#mindTabs button').forEach(b=>b.addEventListener('click',()=>setMindTab(b.dataset.tab)));
 const shuffle=a=>{a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a};
 function quizGame(list,title,onDone){let i=0,score=0;const order=shuffle(list.map((_,k)=>k));const box=$('#mindGame');
@@ -823,7 +1101,7 @@ function gMatch(){const deck=shuffle([...GLYPHS.keys(),...GLYPHS.keys()]);let op
 function gGrateful(){const draw=()=>{$('#mindGame').innerHTML=`<p class="q">What's one thing you're grateful for today?</p><p class="small muted">Big or small: a person, a moment, a cup of coffee. Each one plants a glowing flower in the garden.</p><form id="gf" style="display:flex;flex-direction:column;gap:8px"><input type="text" id="gin" maxlength="80" placeholder="I'm grateful for…" aria-label="Something you're grateful for"><button class="btn">Plant it</button></form><div class="affirm" id="gaff">${AFFIRM[mind.grat.length%AFFIRM.length]}</div>${mind.grat.length?`<h3>Your garden</h3><ul class="grat">${mind.grat.slice().reverse().slice(0,12).map(g=>`<li>${esc(g.t)} <span class="muted small">· ${shortDate(g.d)}</span></li>`).join('')}</ul><button class="linkbtn" id="gclear">Clear my garden</button>`:''}`;
   $('#gf').addEventListener('submit',e=>{e.preventDefault();const v=$('#gin').value.trim();if(!v)return;const g={t:v,d:new Date().toISOString().slice(0,10)};mind.grat.push(g);saveMind();chime(528);if(hooks.plant)hooks.plant(mind.grat.length-1,v,true);draw()});
   $('#gclear')?.addEventListener('click',()=>{mind.grat=[];saveMind();if(hooks.clearGarden)hooks.clearGarden();draw()})};draw()}
-setMindTab('trivia');
+setMindTab('cross');
 
 /* ---------- Founders & contact ---------- */
 const TEAM=[['Sherri Jacks','LPC'],['Christian Young','LCSW'],['Nycole Key','LCSW'],['Dwayne Wright','LAPC'],['Lydell Smith','LPC'],['Extriara Gates','LCSW']];
@@ -956,7 +1234,7 @@ const FACTS=`Success Brand (successbrand.org) — founded 2021 to break down bar
 Services: ${ALL_SVC.map(s=>`${s.name} (${s.group}): ${s.desc}`).join(' | ')}.
 Notes: Faith-based counseling only when the client asks; Success Brand does not promote any belief system. Reiki is optional and non-clinical. EMDR is offered by telehealth or in VR. Exposure therapy uses virtual reality. Individual counseling welcomes all backgrounds, including LGBTQIA+ clients.
 Virtual center rooms: lobby (front desk, services), session room (where clients meet their therapist), relaxation lounge (soundscape, 5-4-3-2-1 grounding), meditation lounge (guided breathing orb: box 4-4-4-4, calm 4-7-8, steady 5-5; 1, 3 or 5 minutes; also viewable in AR).
-More rooms: Mind Garden (games for positive thinking: wellness trivia, Reframe It (CBT-style balanced thinking), brain teasers, Calm Words unscramble, Memory Match with affirmations, and a gratitude garden where each gratitude plants a 3D flower). Music player (top bar): Golden Hour, Ocean Dusk, Rain on the Window, Night Garden, with a sleep timer. Meditation lounge also has guided meditations (Calm before your session, Body scan, Loving-kindness, Release the day), a silent sit with bells, a practice tracker, a mountaintop sanctuary under the Milky Way with three scenes (Milky Way, Golden dawn, Sea of clouds), a singing bowl to ring, and a lotus beneath the orb that opens and closes with the breath. The relaxation lounge has teak chaise loungers and hanging rattan egg chairs.
+More rooms: Mind Garden (relaxing puzzles: a freshly generated wellness crossword, Bloom Sudoku in 6×6 and 9×9 with optional garden colors, Calm Connections matching, number games Petal Sums, Number Flow and Balance, memory games Memory Match, Glow Sequence and What Changed?; plus games for positive thinking: wellness trivia, Reframe It (CBT-style balanced thinking), brain teasers, Calm Words unscramble, Memory Match with affirmations, and a gratitude garden where each gratitude plants a 3D flower). Music player (top bar): Golden Hour, Ocean Dusk, Rain on the Window, Night Garden, with a sleep timer. Meditation lounge also has guided meditations (Calm before your session, Body scan, Loving-kindness, Release the day), a silent sit with bells, a practice tracker, a mountaintop sanctuary under the Milky Way with three scenes (Milky Way, Golden dawn, Sea of clouds), a singing bowl to ring, and a lotus beneath the orb that opens and closes with the breath. The relaxation lounge has teak chaise loungers and hanging rattan egg chairs.
 Leadership: John Kennebrew, LPC, Founder & CEO; leads a multi-state practice centered on community empowerment and oversees The Showcase Group, Success Brand's nonprofit arm supporting justice-involved youth. Vision: mental wellness that is accessible, inclusive and transformative for everyone. Some clinicians: Sherri Jacks (LPC), Christian Young (LCSW), Nycole Key (LCSW), Dwayne Wright (LAPC), Lydell Smith (LPC), Extriara Gates (LCSW).
 Contact: phone (404) 775-0331, email info@successbrand.org, fax (404) 480-5266. Offices: 931 Monroe Drive NE, Suite #102-235, Atlanta, GA 30308; 2221 Austell Rd, Marietta, GA 30008. Social: Facebook (successbrandcounseling), Instagram (@successbrand), YouTube (@SuccessBrand-Org). Founders and Contact pages are in the top menu. Physicians, therapists and administrators use the Staff page to send invitations for individual or group sessions; clients get a private link where they can accept, decline, add the session to their calendar and see how to join (VR session room, video, phone or in person). If someone has an invitation link, they just open it.
 Not known here: prices, insurance plans accepted, official office hours (request slots in this center are Mon–Fri 9 AM–7 PM ET, Sat 9 AM–2 PM ET). For these, say a care coordinator will confirm, and offer to start a request or call the office.`;
@@ -1077,7 +1355,7 @@ async function askClaude(){
     {name:'play_music',description:'Play a relaxing music track, or stop music. Returns "ok".',inputSchema:{type:'object',properties:{track:{type:'string',enum:['golden','ocean','rain','night','stop']}},required:['track']},execute:(i)=>{const k=String(i.track);after.push(()=>k==='stop'?stopMusic():TRACKS[k]&&playTrack(k));return 'ok'}},
     {name:'start_guided_meditation',description:'Start a guided meditation in the meditation lounge: arrive (2 min, before a session), scan (body scan, 4 min), kind (loving-kindness, 3 min), release (release the day, 3 min). Returns "ok".',inputSchema:{type:'object',properties:{id:{type:'string',enum:['arrive','scan','kind','release']}},required:['id']},execute:(i)=>{after.push(()=>startGuided(String(i.id)));return 'ok'}},
     {name:'set_meditation_scene',description:'Switch the meditation lounge scene and take the visitor there: aurora (Milky Way night sky), dawn (golden sunrise over the peaks), mist (moonlit sea of clouds). Returns "ok".',inputSchema:{type:'object',properties:{scene:{type:'string',enum:['aurora','dawn','mist']}},required:['scene']},execute:(i)=>{after.push(()=>{go('meditate');setMedMood(String(i.scene))});return 'ok'}},
-    {name:'open_game',description:'Open a Mind Garden game: trivia, reframe, teasers, words, match, grateful. Returns "ok".',inputSchema:{type:'object',properties:{game:{type:'string',enum:['trivia','reframe','teasers','words','match','grateful']}},required:['game']},execute:(i)=>{after.push(()=>{go('mind');setMindTab(String(i.game))});return 'ok'}},
+    {name:'open_game',description:'Open a Mind Garden game: cross (crossword), sudoku, pairs (matching), numbers (Petal Sums, Number Flow, Balance), match (memory games: Memory Match, Glow Sequence, What Changed?), trivia, reframe, teasers, words, grateful. Returns "ok".',inputSchema:{type:'object',properties:{game:{type:'string',enum:['cross','sudoku','pairs','numbers','match','trivia','reframe','teasers','words','grateful']}},required:['game']},execute:(i)=>{after.push(()=>{go('mind');setMindTab(String(i.game))});return 'ok'}},
     {name:'start_breathing',description:'Take the visitor to the meditation lounge and start a guided breath. Returns "ok".',inputSchema:{type:'object',properties:{pattern:{type:'string',enum:['box','478','coh']},minutes:{type:'number',enum:[1,3,5]}}},execute:(i)=>{after.push(()=>breatheNow(i.pattern,i.minutes));return 'ok'}},
     {name:'show_resources',description:'Show the full list of crisis and support phone lines in the chat. Returns "ok".',execute:()=>{after.push(()=>resourcesReply());return 'ok'}}
   ];
@@ -1384,8 +1662,8 @@ const KB_RAW=[
 ['center','What can I do here?','what can i do|how does this work|help me navigate|features|tour|what is here',[
  `In this virtual center you can **book a session**, meet your therapist in the **Session Room**, unwind in the **Relaxation Lounge**, breathe and meditate in the **Meditation Lounge**, and play games in the **Mind Garden**.`],
  `Use the top menu or click a glowing archway. Zoom with the + and − buttons, play music with ♪ Music, and choose **Enter VR** if you have a headset.`,'games,music,guided'],
-['games','Play a game','game|puzzle|trivia|teaser|riddle|play |play a|bored|brain',[
- `The **Mind Garden** has games that build positive thinking: wellness trivia, Reframe It, brain teasers, Calm Words, Memory Match with affirmations, and a gratitude garden.`],``,'reframe,gratitude,affirm'],
+['games','Play a game','game|puzzle|trivia|teaser|riddle|play |play a|bored|brain|crossword|sudoku|matching|number game|memory game|math',[
+ `The **Mind Garden** has relaxing puzzles: a new **wellness crossword** every time, **Bloom Sudoku** (6×6 or 9×9), **Calm Connections** matching, number games (**Petal Sums**, **Number Flow**, **Balance**), and memory games (**Memory Match**, **Glow Sequence**, **What Changed?**).`],`It also has games for positive thinking: wellness trivia, Reframe It, brain teasers, Calm Words, and a gratitude garden where each thing you're grateful for blooms into a flower.`,'reframe,gratitude,affirm'],
 ['music','Relaxing music','music|song|soundtrack|playlist|ambient|sounds',[
  `Open **♪ Music** in the top bar for four calming tracks generated live: Golden Hour, Ocean Dusk, Rain on the Window and Night Garden, with a sleep timer.`],``,'sleep,guided,selfcare'],
 ['guided','Guided meditations','guided|body scan|loving kindness|meditation session',[

@@ -27,6 +27,7 @@ Then open the printed address.
 **Static hosting (GitHub Pages, any web host).** Upload `index.html`, `models/` and `.nojekyll`. Everything works except Grace's AI answers and studio voice: she uses her built-in answers and the best natural voice on the visitor's device (Microsoft neural voices in Edge, Google voices in Chrome, Siri voices on Apple devices).
 
 **Full features (Vercel).** Import this repository in Vercel, then add environment variables from `.env.example`:
+- Mind Garden puzzles: a fresh wellness crossword every time, Bloom Sudoku (6×6 and 9×9, optional garden colors, notes and hints), Calm Connections matching, number games (Petal Sums, Number Flow, Balance) and memory games (Memory Match in three sizes, Glow Sequence, What Changed?)
 - `ANTHROPIC_API_KEY` turns on Grace's AI answers (`api/guide.js`)
 - `ELEVENLABS_API_KEY` or `OPENAI_API_KEY` turns on Grace's studio voice (`api/tts.js`)
 
