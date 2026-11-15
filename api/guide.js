@@ -1,4 +1,4 @@
-// Sage's AI answers. Forwards the visitor's chat to Claude with Sage's instructions.
+// Grace's AI answers. Forwards the visitor's chat to Claude with Grace's instructions.
 // Requires ANTHROPIC_API_KEY. Optional: GUIDE_MODEL (default claude-haiku-5-5).
 const { limited, cors } = require('./_util');
 module.exports = async (req, res) => {
@@ -9,9 +9,9 @@ module.exports = async (req, res) => {
   if (!key) return res.status(503).json({ error: 'Guide is not configured' });
   if (limited(req, 20)) return res.status(429).json({ error: 'Too many messages. Please wait a minute.' });
   const body = typeof req.body === 'string' ? JSON.parse(req.body || '{}') : (req.body || {});
-  // Only Sage's own instructions are accepted, so the endpoint can't be used as a general AI proxy.
+  // Only Grace's own instructions are accepted, so the endpoint can't be used as a general AI proxy.
   const system = String(body.system || '');
-  if (!system.startsWith('You are Sage')) return res.status(400).json({ error: 'Unexpected request' });
+  if (!system.startsWith('You are Grace') && !system.startsWith('You are Sage')) return res.status(400).json({ error: 'Unexpected request' });
   const msgs = [];
   for (const m of Array.isArray(body.messages) ? body.messages.slice(-14) : []) {
     if (!m || (m.role !== 'user' && m.role !== 'assistant') || typeof m.content !== 'string' || !m.content.trim()) continue;

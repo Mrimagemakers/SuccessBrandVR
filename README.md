@@ -6,7 +6,7 @@ A 3D / VR / AR counseling experience for [Success Brand](https://www.successbran
 
 **Features**
 - A grand portal lobby: travertine arches with glowing outlines and signs, live previews of each room, a reflective floor, a tree-of-life sculpture and a skylight vault
-- Sage, a photoreal hologram guide who answers questions, books appointment requests, shares crisis resources, and speaks with a natural voice (she blinks, breathes and moves her lips as she talks)
+- Grace, a photoreal hologram guide who answers questions, books appointment requests, shares crisis resources, and speaks with a natural voice (she blinks, breathes and moves her lips as she talks)
 - Staff invitations: physicians, therapists and administrators invite clients to individual or group sessions; clients open a private link to accept, decline, add to calendar and join
 - Meditation lounge: a mountaintop sanctuary under the Milky Way with glowing carved arches, a valley river below, a Persian rug, glowing crystals, lanterns and a breathing meditation figure; three scenes (Milky Way, Golden dawn, Sea of clouds), a lotus that breathes with you, a singing bowl, guided meditations and a silent sit with bells
 - Relaxation lounge with teak chaise loungers, hanging rattan egg chairs and generative music
@@ -24,11 +24,11 @@ npx serve .
 Then open the printed address.
 
 ## Hosting
-**Static hosting (GitHub Pages, any web host).** Upload `index.html`, `models/` and `.nojekyll`. Everything works except Sage's AI answers and studio voice: she uses her built-in answers and the best natural voice on the visitor's device (Microsoft neural voices in Edge, Google voices in Chrome, Siri voices on Apple devices).
+**Static hosting (GitHub Pages, any web host).** Upload `index.html`, `models/` and `.nojekyll`. Everything works except Grace's AI answers and studio voice: she uses her built-in answers and the best natural voice on the visitor's device (Microsoft neural voices in Edge, Google voices in Chrome, Siri voices on Apple devices).
 
 **Full features (Vercel).** Import this repository in Vercel, then add environment variables from `.env.example`:
-- `ANTHROPIC_API_KEY` turns on Sage's AI answers (`api/guide.js`)
-- `ELEVENLABS_API_KEY` or `OPENAI_API_KEY` turns on Sage's studio voice (`api/tts.js`)
+- `ANTHROPIC_API_KEY` turns on Grace's AI answers (`api/guide.js`)
+- `ELEVENLABS_API_KEY` or `OPENAI_API_KEY` turns on Grace's studio voice (`api/tts.js`)
 
 The page checks `api/health` on load and switches these on automatically. Visitors can still pick a different voice from the chat's **Voice** menu.
 
@@ -55,7 +55,7 @@ Open **Staff** in the top menu and sign in with the staff access code.
 ## Before launch
 - Booking requests are stored in the visitor's browser only. Connect your HIPAA-compliant scheduler or EHR in the booking form's submit handler (`#bookForm` in `index.html`).
 - Live therapy video should run through your existing secure telehealth platform.
-- Sage is a guide, not a clinician; she never diagnoses or advises on medication and always routes crisis messages to 988 / 911.
+- Grace is a guide, not a clinician; she never diagnoses or advises on medication and always routes crisis messages to 988 / 911.
 
 ## Credits
 3D furniture from the [Khronos glTF Sample Assets](https://github.com/KhronosGroup/glTF-Sample-Assets) (textures resized for the web):
